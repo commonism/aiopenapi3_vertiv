@@ -1,0 +1,1833 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Vertiv/Geist PDU JSON API OpenAPI description document
+
+servers:
+  - url: /api
+
+paths:
+  /dev:
+    post:
+      operationId: dev
+      description: 4.0 /api/dev
+      requestBody:
+        description: get
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Get"
+      responses:
+        '200':
+          description: 4.1 Top Level
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: False
+                properties:
+                  retCode:
+                    type: integer
+                  retMsg:
+                    type: string
+                  data:
+                    type: object
+                    additionalProperties:
+                      $ref: "#/components/schemas/Device"
+
+  /dev/{device}/outlet/{outlet}:
+    parameters:
+      - name: device
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: outlet
+        in: path
+        required: true
+        schema:
+          type: string
+
+    post:
+      operationId: outlet
+      requestBody:
+        description: 4.2.3 Outlet
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: False
+              discriminator:
+                propertyName: cmd
+                mapping:
+                  control: "#/paths/~1dev~1{device}~1outlet~1{outlet}/post/requestBody/content/application~1json/schema/oneOf/0"
+                  reset:   "#/paths/~1dev~1{device}~1outlet~1{outlet}/post/requestBody/content/application~1json/schema/oneOf/1"
+              oneOf:
+              - type: object
+                additionalProperties: False
+                properties:
+                    token:
+                      type: string
+                      default: ""
+                    cmd:
+                      type: string
+                      enum:
+                        - "control"
+                      default: "control"
+                    data:
+                      type: object
+                      additionalProperties: False
+                      properties:
+                        action:
+                          enum:
+                          - "on"
+                          - "off"
+                          - reboot
+                          - cancel
+                        delay:
+                          type: boolean
+
+              - type: object
+                additionalProperties: False
+                properties:
+                    token:
+                      type: string
+                      default: ""
+                    cmd:
+                      type: string
+                      enum:
+                        - "reset"
+                      default: "reset"
+                    data:
+                      type: object
+                      additionalProperties: False
+                      properties:
+                        target:
+                          type: string
+                          enum: [energy]
+
+      responses:
+        '200':
+          description: the response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Defaults'
+
+  /dev/{device}/outlet:
+    parameters:
+      - name: device
+        in: path
+        required: true
+        schema:
+          type: string
+
+    post:
+      operationId: device
+      requestBody:
+        description: 4.2.4 Entity
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: False
+              discriminator:
+                propertyName: cmd
+                mapping:
+                  control: "#/paths/~1dev~1{device}~1outlet~1{outlet}/post/requestBody/content/application~1json/schema/oneOf/0"
+                  reset:   "#/paths/~1dev~1{device}~1outlet~1{outlet}/post/requestBody/content/application~1json/schema/oneOf/1"
+              oneOf:
+              - type: object
+                additionalProperties: False
+                properties:
+                    token:
+                      type: string
+                      default: ""
+                    cmd:
+                      type: string
+                      enum:
+                        - "control"
+                      default: "control"
+                    data:
+                      type: object
+                      additionalProperties: False
+                      properties:
+                        action:
+                          enum:
+                          - "on"
+                          - "off"
+                          - reboot
+                          - cancel
+                        delay:
+                          type: boolean
+
+              - type: object
+                additionalProperties: False
+                properties:
+                    token:
+                      type: string
+                      default: ""
+                    cmd:
+                      type: string
+                      enum:
+                        - "reset"
+                      default: "reset"
+                    data:
+                      type: object
+                      additionalProperties: False
+                      properties:
+                        target:
+                          type: string
+                          enum: [energy, minmax]
+
+      responses:
+        '200':
+          description: the response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Defaults'
+
+  /alarm:
+    post:
+      operationId: alarm
+      requestBody:
+        description: 5.1 Top Level
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Get"
+      responses:
+        '200':
+          description: 5.1 Top Level
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: False
+                properties:
+                  retCode:
+                    type: integer
+                  retMsg:
+                    type: string
+                  data:
+                    $ref: "#/components/schemas/Alarm"
+
+
+  /conf:
+    post:
+      description: 8.0 /api/conf
+      operationId: conf
+      requestBody:
+        description: test
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Get"
+      responses:
+        '200':
+          description: 8.1 Top Level
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: False
+                properties:
+                  retCode:
+                    type: integer
+                  retMsg:
+                    type: string
+                  data:
+                    $ref: "#/components/schemas/Configuration"
+
+
+  /conf/network:
+    post:
+      description: 8.2 network
+      operationId: confNetwork
+      requestBody:
+        description: test
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Get"
+      responses:
+        '200':
+          description: 8.2 network
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: False
+                properties:
+                  retCode:
+                    type: integer
+                  retMsg:
+                    type: string
+                  data:
+                    type: object
+                    additionalProperties:
+                      $ref: "#/components/schemas/Network"
+
+  /conf/network/addresses:
+    post:
+      description: 8.2.1 network/addresses
+      operationId: confNetworkAddresses
+      requestBody:
+        description: |
+          FIXME
+          Operations add set delete
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Get"
+      responses:
+        '200':
+          description: 8.2.1 network/addresses
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: True
+
+  /conf/network/dns:
+    post:
+      description: 8.2.2 network/dns
+      operationId: confNetworkDNS
+      requestBody:
+        description: |
+          FIXME
+          Operations add set delete
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Get"
+      responses:
+        '200':
+          description: 8.2.2 network/dns
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: True
+
+  /conf/contact:
+    post:
+      description: 8.3 contact
+      operationId: confContact
+      requestBody:
+        description: |
+          FIXME
+          Operations set
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Get"
+      responses:
+        '200':
+          description: 8.3 contact
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: True
+
+
+  /conf/system:
+    post:
+      description: 8.4 system
+      operationId: confSystem
+      requestBody:
+        description: |
+          FIXME
+          Operations set
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Get"
+      responses:
+        '200':
+          description: 8.4 system
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: True
+
+  /conf/report:
+    post:
+      description: 8.5 report
+      operationId: confReport
+      requestBody:
+        description: |
+          FIXME
+          Operations set add delete
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Get"
+      responses:
+        '200':
+          description: 8.5 report
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: True
+
+  /conf/email:
+    post:
+      description: 8.6 email
+      operationId: confEmail
+      requestBody:
+        description: |
+          FIXME
+          Operations add
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Get"
+      responses:
+        '200':
+          description: 8.6 email
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: True
+
+  /conf/email/target:
+    post:
+      description: 8.6 email - email/target object
+      operationId: confEmailTarget
+      requestBody:
+        description: |
+          FIXME
+          Operations set sendTest delete
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Get"
+      responses:
+        '200':
+          description: 8.6 email - email/target object
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: True
+
+  /conf/email/status:
+    post:
+      description: 8.6 email - email/status object
+      operationId: confEmailStatus
+      requestBody:
+        description: yes
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Get"
+      responses:
+        '200':
+          description: 8.6 email - email/status object
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: True
+
+  /conf/snmp:
+    post:
+      description: 8.7 snmp
+      operationId: confSNMP
+      requestBody:
+        description: |
+          FIXME
+
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Get"
+      responses:
+        '200':
+          description: 8.7 snmp
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: False
+                properties:
+                  retCode:
+                    type: integer
+                  retMsg:
+                    type: string
+                  data:
+                    $ref: "#/components/schemas/SNMP"
+  /sys:
+    post:
+      operationId: sys
+      description: 9.0 /api/sys
+
+      requestBody:
+        description: test
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Get"
+      responses:
+        '200':
+          description: System Info
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: False
+                properties:
+                  retCode:
+                    type: integer
+                  retMsg:
+                    type: string
+                  data:
+                    $ref: "#/components/schemas/System"
+
+
+  /auth/:
+    post:
+      operationId: users
+      description: 10.0 /api/auth (Users and User Authentication)
+      requestBody:
+        description: get add set delete
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Get"
+      responses:
+        '200':
+          description: auth response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: False
+                properties:
+                  retCode:
+                    type: integer
+                  retMsg:
+                    type: string
+                  data:
+                    type: object
+                    additionalProperties:
+                      $ref: "#/components/schemas/User"
+
+
+  /auth/{user}:
+    parameters:
+      - name: user
+        in: path
+        required: true
+        schema:
+          type: string
+
+    post:
+      operationId: auth
+      description: |
+        10.0 /api/auth (Users and User Authentication)
+        Login Request (/api/auth/__USER_ID__)
+
+      requestBody:
+        description: login or logout
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: False
+              discriminator:
+                propertyName: cmd
+                mapping:
+                  login: "#/paths/~1auth~1{user}/post/requestBody/content/application~1json/schema/oneOf/0"
+                  logout: "#/paths/~1auth~1{user}/post/requestBody/content/application~1json/schema/oneOf/1"
+
+              oneOf:
+              - type: object
+                additionalProperties: False
+                properties:
+                  token:
+                    type: string
+                    default: ""
+                  cmd:
+                    type: string
+                    enum: [login]
+                    default: "login"
+                  data:
+                    type: object
+                    additionalProperties: False
+                    properties:
+                      password:
+                        type: string
+                    required:
+                      - password
+                required:
+                  - cmd
+                  - data
+
+              - type: object
+                additionalProperties: False
+                properties:
+                  token:
+                    type: string
+                  cmd:
+                    type: string
+                    enum: [logout]
+                    default: "logout"
+                  data:
+                    type: object
+                    additionalProperties: False
+                required:
+                  - token
+                  - cmd
+                  - data
+
+      responses:
+        '200':
+          description: auth response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: False
+                anyOf:
+                 - $ref: "#/components/schemas/Response"
+
+                oneOf:
+                  - type: object
+                    description: login response
+                    additionalProperties: False
+                    properties:
+                      data:
+                        type: object
+                        additionalProperties: False
+                        properties:
+                          token:
+                            type: string
+                          language:
+                            type: string
+                          admin:
+                            type: boolean
+                          control:
+                            type: boolean
+                          source:
+                            type: string
+                          scope:
+                            type: string
+                            nullable: true
+                        required:
+                          - token
+                          - language
+                          - admin
+                          - control
+                          - source
+                          - scope
+                  - type: object
+                    additionalProperties: False
+
+components:
+  schemas:
+    Response:
+      type: object
+      additionalProperties: False
+      properties:
+        retCode:
+          type: integer
+        retMsg:
+          type: string
+        data: {}
+
+    Get:
+      type: object
+      properties:
+        token:
+          type: string
+        cmd:
+          type: string
+          enum: [get]
+          default: get
+        filter:
+          type: string
+
+    Device:
+      type: object
+      additionalProperties: False
+      description: 4.2 __SERIAL_NUM__
+      discriminator:
+        propertyName: type
+        mapping:
+          i03: "#/components/schemas/i03"
+          thd: "#/components/schemas/thd"
+          t3hd: "#/components/schemas/t3hd"
+      oneOf:
+      - $ref: "#/components/schemas/i03"
+      - $ref: "#/components/schemas/thd"
+      - $ref: "#/components/schemas/t3hd"
+
+    i03:
+      type: object
+      additionalProperties: False
+      description: 4.2 __SERIAL_NUM__
+      properties:
+        type:
+          type: string
+          enum: [i03]
+        state:
+          type: string
+          enum:
+          - normal
+          - unavailable
+          - degraded
+        alarm:
+          $ref: "#/components/schemas/AlarmState"
+        name:
+          type: string
+        label:
+          type: string
+        analog:
+          $ref: "#/components/schemas/AnalogInput"
+        outlet:
+          type: object
+          additionalProperties:
+            $ref: "#/components/schemas/Outlet"
+        entity:
+          type: object
+          additionalProperties:
+            $ref: "#/components/schemas/Entity"
+        relay:
+          $ref: "#/components/schemas/Relay"
+        layout:
+          type: object
+          additionalProperties:
+            $ref: "#/components/schemas/Layout"
+        order:
+          type: integer
+        temperatureOffset:
+          type: integer
+        snmpInstance:
+          type: integer
+        conf:
+          type: object
+          additionalProperties: False
+          properties:
+            outletControlEnabled:
+              type: boolean
+        point:
+          type: object
+          additionalProperties: False
+          properties:
+            pseCompliant:
+              type: object
+            meterType:
+              type: object
+              additionalProperties: False
+              properties:
+                value:
+                  type: string
+        lifetimeEnergy:
+          type: string
+
+      required:
+        - type
+        - state
+        - alarm
+        - name
+        - label
+        - outlet
+        - entity
+        - layout
+        - order
+        - snmpInstance
+        - conf
+        - point
+        - lifetimeEnergy
+
+    thd:
+      type: object
+      additionalProperties: False
+      description: 4.2 __SERIAL_NUM__
+      properties:
+        type:
+          type: string
+          enum: [thd]
+        state:
+          type: string
+          enum:
+          - normal
+          - unavailable
+          - degraded
+        alarm:
+          $ref: "#/components/schemas/AlarmState"
+        name:
+          type: string
+        label:
+          type: string
+        entity:
+          type: object
+          additionalProperties:
+            $ref: "#/components/schemas/Entity"
+        layout:
+          type: object
+          additionalProperties:
+            $ref: "#/components/schemas/Layout"
+        order:
+          type: integer
+        snmpInstance:
+          type: integer
+
+      required:
+        - type
+        - state
+        - alarm
+        - name
+        - label
+        - entity
+        - layout
+        - order
+        - snmpInstance
+
+    t3hd:
+      type: object
+      additionalProperties: False
+      description: 4.2 __SERIAL_NUM__
+      properties:
+        type:
+          type: string
+          enum: [t3hd]
+        state:
+          type: string
+          enum:
+          - normal
+          - unavailable
+          - degraded
+        alarm:
+          $ref: "#/components/schemas/AlarmState"
+        name:
+          type: string
+        label:
+          type: string
+        entity:
+          type: object
+          additionalProperties:
+            $ref: "#/components/schemas/Entity"
+        layout:
+          type: object
+          additionalProperties:
+            $ref: "#/components/schemas/Layout"
+        order:
+          type: integer
+        snmpInstance:
+          type: integer
+
+      required:
+        - type
+        - state
+        - alarm
+        - name
+        - label
+        - entity
+        - layout
+        - order
+        - snmpInstance
+
+    Any: {}
+
+    Measurement:
+      type: object
+      additionalProperties: False
+      description: 4.2.1 Measurement
+      properties:
+        type:
+          type: string
+          example: measurement type
+        value:
+          type: string
+          example: 42
+        name:
+          type: string
+          example: some official name
+        label:
+          type: string
+          example: some user name
+        units:
+          type: string
+          example: potatoes
+        state :
+          enum:
+          - normal
+          - unavailable
+          - none
+        alarm:
+          $ref: "#/components/schemas/AlarmState"
+        note:
+          type: string
+          example: some note
+        min:
+          type: string
+          example: 0
+        max:
+          type: string
+          example: 1000
+        datalogEnabled:
+          type: boolean
+        displayEnabled:
+          type: boolean
+
+    AnalogInput:
+      type: object
+      additionalProperties: False
+      description: 4.2.2 Analog Inputs
+      properties:
+        type:
+          type: string
+          example: 5V/10V
+        value:
+          type: string
+          example: 42
+        name:
+          type: string
+        label:
+          type: string
+        units:
+          type: string
+        state :
+          enum:
+          - normal
+          - unavailable,
+        alarm:
+          $ref: "#/components/schemas/AlarmState"
+        note:
+          type: string
+        min:
+          type: string
+        max:
+          type: string
+        mode:
+          type: string
+          enum:
+          - door
+          - powerFailure
+          - flood
+          - wscLeak
+          - wscFault
+          - smoke
+          - ivsNegGnd
+          - ivsPosGnd
+          - customVoltage
+          - customCurrent
+          - customBinary
+        highLabel:
+          type: string
+          enum: ["on","off"]
+        lowLabel:
+          type: string
+          enum: ["on","off"]
+
+    Outlet:
+      type: object
+      additionalProperties: False
+      description: 4.2.3 Outlet
+      properties:
+        group:
+          type: string
+        name:
+          type: string
+        label:
+          type: string
+        url:
+          type: string
+        state:
+          enum:
+            - on
+            - off
+            - on2off
+            - off2on
+            - rebootOn
+            - rebootOff
+            - unavailable
+        mode:
+          enum:
+          - alarmOn
+          - alarmAnyOff
+          - alarmOff
+          - manual
+        alarm:
+          $ref: "#/components/schemas/AlarmState"
+        timeToAction:
+          type: integer
+          description: seconds
+        relayFailure:
+          type: boolean
+        onDelay:
+          type: number
+          description: seconds
+        offDelay:
+          type: number
+          description: seconds
+        rebootDelay:
+          type: number
+          description: seconds
+        rebootHoldDelay:
+          type: number
+          description: seconds
+        poaAction:
+          enum:
+          - on
+          - off
+          - last
+        poaDelay:
+          type: number
+          description: seconds
+        measurement:
+          type: object
+          additionalProperties:
+            $ref: "#/components/schemas/Measurement"
+        parent:
+          type: string
+        parentBreaker:
+          type: string
+        parentPhase:
+          type: string
+        snmpInstance:
+          type: integer
+
+    Entity:
+      type: object
+      additionalProperties: False
+      description: 4.2.4 Entity
+      properties:
+        name:
+          type: string
+        label:
+          type: string
+        alarm:
+          $ref: "#/components/schemas/AlarmState"
+        measurement:
+          type: object
+          additionalProperties:
+            $ref: "#/components/schemas/Measurement"
+        conf:
+          type: object
+          additionalProperties: False
+
+        point:
+          type: object
+          additionalProperties: False
+          properties:
+            lossOfLoadDetected:
+              $ref: "#/components/schemas/BooleanValue"
+            residualCurrentDetected:
+              $ref: "#/components/schemas/BooleanValue"
+
+    BooleanValue:
+      type: object
+      additionalProperties: False
+      properties:
+        value:
+          type: boolean
+
+    Relay:
+      type: object
+      additionalProperties: False
+      description: 4.2.5 Relay
+      properties:
+        name:
+          type: string
+        label:
+          type: string
+        onLabel:
+          type: string
+          example: Energized
+        offLabel:
+          type: string
+          example: Deenergized
+        state:
+          type: string
+          enum: [on, off]
+        mode:
+          type: string
+          enum: [alarm, manual]
+
+    Layout:
+      type: array
+      description: 4.2.6 Layout
+      items:
+        type: string
+
+    Alarm:
+      type: object
+      additionalProperties: False
+      description: 5.1 Top Level
+      properties:
+        trigger:
+          type: object
+          additionalProperties:
+            $ref: "#/components/schemas/Trigger"
+        action:
+          type: object
+          additionalProperties:
+            $ref: "#/components/schemas/Action"
+        target:
+          type: object
+          additionalProperties:
+            $ref: "#/components/schemas/Target"
+        validTime:
+          type: object
+          additionalProperties:
+            $ref: "#/components/schemas/Interval"
+
+    Trigger:
+      type: object
+      additionalProperties: False
+      description: 5.2 trigger
+      properties:
+        state:
+          type: string
+          enum: [clear,acked,latched,tripped,inactive]
+        severity :
+          type: string
+          enum: [alarm,warning]
+        latching :
+          type: boolean
+        type :
+          type: string
+          enum: [high,low,status]
+        path:
+          type: string
+          example: __DEVICE_ID__/path/to/alarmed/object
+        threshold:
+          type: integer
+
+        clearDelay:
+          type: integer
+          description: 0-14400 (seconds. Translates to 240 minutes),
+        tripDelay:
+          type: integer
+          description: 0-14400 (seconds. Translates to 240 minutes),
+        validTime:
+          type: string
+          description: __VALID_TIMES_ID_ //blank for always valid
+        invertValidTime:
+          type: boolean
+        selectedActions:
+          type: array
+          description: "[__ACTION_ID__, __ACTION_ID__, ..., __ACTION_ID__ ]"
+          items:
+            type: string
+
+    Action:
+      type: object
+      additionalProperties: False
+      description: 5.3 action
+      properties:
+        target:
+          type: string
+        delay:
+          type: integer
+          description: 0-14400 (seconds. Translates to 240 minutes)
+        repeat:
+          type: integer
+          description: 0-14400 (seconds. Translates to 240 minutes)(Only on triggers supporting repeat. For now, these are emails and traps)
+
+    Target:
+      type: object
+      additionalProperties: False
+      description: 5.4 target
+      properties:
+        name:
+          type: string
+        group:
+          type: string
+          description: "[email,trap,devName]"
+        type:
+          type: string
+          enum: [email,trap,buzzer,outlet,relay]
+        enabled:
+          type: boolean
+        path:
+          type: string
+
+    Interval:
+      type: object
+      additionalProperties: False
+      description: 5.5 validTime
+      properties:
+        start:
+          type: integer
+          description: (00-24 hour number plus minutes. 00:00 to 24:00 means all day)
+        stop:
+          type: integer
+          description: (00-24 hour number plus minutes. 00:00 to 24:00 means all day)
+        days:
+          type: string
+          description: |
+            "MTWTFSS"/"M----S-" (The letter of the day is present if that day is enabled or '-' if not)
+
+    AlarmState:
+      type: object
+      additionalProperties: False
+      properties:
+        state:
+          enum:
+          - none
+          - clear
+          - acked
+          - latched
+          - tripped
+        severity:
+          enum:
+          - ""
+          - warning
+          - alarm
+      required:
+        - state
+        - severity
+
+    Configuration:
+      type: object
+      additionalProperties: False
+      description: 8.1 Top Level
+      properties:
+        network:
+          type: object
+          additionalProperties:
+            $ref: "#/components/schemas/Network"
+        contact:
+          $ref: "#/components/schemas/Any"
+        report:
+          $ref: "#/components/schemas/Any"
+        email:
+          $ref: "#/components/schemas/Any"
+        snmp:
+          $ref: "#/components/schemas/SNMP"
+        http:
+          $ref: "#/components/schemas/Any"
+        time:
+          $ref: "#/components/schemas/Any"
+        syslog:
+          $ref: "#/components/schemas/Any"
+        lcd:
+          $ref: "#/components/schemas/Any"
+        ldap:
+          $ref: "#/components/schemas/Any"
+        led:
+          $ref: "#/components/schemas/Any"
+        locale:
+          $ref: "#/components/schemas/Any"
+        camera:
+          $ref: "#/components/schemas/Any"
+        oneview:
+          $ref: "#/components/schemas/OneView"
+        display:
+          $ref: "#/components/schemas/Display"
+
+        auth:
+          $ref: "#/components/schemas/Auth"
+
+        remoteAuth:
+          $ref: "#/components/schemas/RemoteAuth"
+
+        serial:
+          type: object
+          additionalProperties: False
+          properties:
+            stopBits:
+              type: integer
+            parity:
+              type: string
+            baudRate:
+              type: integer
+            enabled:
+              type: boolean
+            dataBits:
+              type: integer
+
+        datalog:
+          type: object
+          additionalProperties: False
+          properties:
+            interval:
+              type: integer
+
+        usb:
+          type: object
+          additionalProperties: False
+          properties:
+            dev:
+              type: object
+              additionalProperties: False
+            enabled:
+              type: boolean
+
+        modbus:
+          type: object
+          additionalProperties: False
+          properties:
+            tcp:
+              type: object
+              additionalProperties: False
+              properties:
+                enabled:
+                  type: boolean
+                port:
+                  type: integer
+            access:
+              type: string
+        ssh:
+          type: object
+          additionalProperties: False
+          properties:
+            port:
+              type: integer
+            enabled:
+              type: boolean
+        system:
+          type: object
+          additionalProperties: False
+          properties:
+            label:
+              type: string
+            ip4Enabled:
+              type: boolean
+            ip6Enabled:
+              type: boolean
+            hostname:
+              type: string
+            factoryAccessEnabled:
+              type: boolean
+
+    OneView:
+      type: object
+      additionalProperties: False
+      properties:
+        password:
+          type: string
+        passwordSet:
+          type: boolean
+        enabled:
+          type: boolean
+        username:
+          type: string
+        auto:
+          type: object
+          additionalProperties: False
+          properties:
+            downstreamInterface:
+              type: string
+            upstreamInterface:
+              type: string
+            prefix:
+              type: integer
+            address:
+              type: string
+        mode:
+          type: string
+
+    Display:
+      type: object
+      additionalProperties: False
+      properties:
+        gmsd:
+          type: object
+          additionalProperties: False
+          properties:
+            inverted:
+              type: boolean
+            vlc:
+              type: object
+              additionalProperties: False
+              properties:
+                enabled:
+                  type: boolean
+            dataSource:
+              type: object
+              additionalProperties: False
+              properties:
+                totalPower:
+                  type: boolean
+                current:
+                  type: boolean
+                voltage:
+                  type: boolean
+            mode:
+              type: string
+
+    Auth:
+      type: object
+      additionalProperties: False
+      properties:
+        passwordRules:
+          type: object
+          additionalProperties: False
+          properties:
+            allowRepeatCharacters:
+              type: boolean
+            minSymbols:
+              type: integer
+            allowUsernameInclusion:
+              type: boolean
+            minDigits:
+              type: integer
+            minUppercase:
+              type: integer
+            minLength:
+              type: integer
+
+        scope:
+          type: object
+          additionalProperties: False
+
+
+    RemoteAuth:
+          type: object
+          additionalProperties: False
+          properties:
+            radius:
+              $ref: "#/components/schemas/RADIUS"
+            tacacs:
+              $ref: "#/components/schemas/TACAS"
+            ldap:
+              $ref: "#/components/schemas/LDAP"
+            mode:
+              type: string
+
+    RADIUS:
+      type: object
+      additionalProperties: False
+      properties:
+        host:
+          type: string
+        sharedSecretSet:
+          type: boolean
+        enabledGroup:
+          type: string
+        authenticationServer1:
+          type: string
+        authenticationServer2:
+          type: string
+        accountingServer1:
+          type: string
+        accountingServer2:
+          type: string
+        adminGroup:
+          type: string
+        groupAttribute:
+          type: string
+        sharedSecret:
+          type: string
+        controlGroup:
+          type: string
+
+
+    TACAS:
+      type: object
+      additionalProperties: False
+      properties:
+        service:
+          type: string
+        controlAttribute:
+          type: string
+        authenticationServer1:
+          type: string
+        authenticationServer2:
+          type: string
+        accountingServer1:
+          type: string
+        accountingServer2:
+          type: string
+        enabledAttribute:
+          type: string
+        adminAttribute:
+          type: string
+        sharedSecret:
+          oneOf:
+          - enum: [null]
+        sharedSecretSet:
+          type: boolean
+
+
+    LDAP:
+      type: object
+      additionalProperties: False
+      properties:
+        mode:
+          type: string
+        controlGroup:
+          type: string
+        enabledGroup:
+          type: string
+        adminGroup:
+          type: string
+        port:
+          type: integer
+        password:
+          oneOf:
+          - type: string
+          - enum: [null]
+        bindDn:
+          type: string
+        baseDn:
+          type: string
+        userId:
+          type: string
+        userIdNum:
+          type: string
+        groupId:
+          type: string
+        userFilter:
+          type: string
+        securityType:
+          type: string
+        passwordSet:
+          type: boolean
+        groupFilter:
+          type: string
+        groupMemberUid:
+          type: string
+        host:
+          type: string
+
+
+
+    Network:
+      type: object
+      additionalProperties: False
+      description: 8.2 network
+      properties:
+        enabled:
+          type: boolean
+        macAddr:
+          type: string
+        dhcpOn:
+          type: boolean
+        dns:
+          type: object
+          additionalProperties:
+            $ref: "#/components/schemas/DNS"
+        address:
+          type: object
+          additionalProperties:
+            $ref: "#/components/schemas/Address"
+        ip4GW:
+          type: string
+        ip6GW:
+          type: string
+        label:
+          type: string
+        link:
+          type: object
+          additionalProperties: False
+          properties:
+            stat:
+              type: object
+              additionalProperties: False
+              properties:
+                rxCount:
+                  type: integer
+                rxDropped:
+                  type: integer
+                txCount:
+                  type: integer
+                txDropped:
+                  type: integer
+            state:
+              type: string
+              enum: [up, down]
+            uptime:
+              type: integer
+            supportedModes:
+              type: array
+              items:
+                type: string
+            speed:
+              type: string
+            duplex:
+              type: string
+        name:
+          type: string
+        order:
+          type: integer
+        ports:
+          type: array
+          items:
+            type: string
+        removable:
+          type: boolean
+        route:
+          type: object
+          additionalProperties:
+            type: object
+            additionalProperties: False
+            properties:
+              destination:
+                type: string
+              gateway:
+                type: string
+              interface:
+                type: string
+              mutable:
+                type: boolean
+              prefix:
+                type: integer
+        stp:
+          type: object
+          additionalProperties: False
+          properties:
+            bridgePriority:
+              type: integer
+            enabled:
+              type: boolean
+            forwardDelay:
+              type: integer
+            helloTime:
+              type: integer
+            maxAge:
+              type: integer
+            maxHops:
+              type: integer
+            mode:
+              type: string
+            state:
+              type: string
+            role:
+              type: string
+            cost:
+              type: integer
+            bridge:
+              type: string
+        type:
+          type: string
+        bridge:
+          oneOf:
+          - enum: [null]
+    Address:
+      type: object
+      additionalProperties: False
+      description: 8.2.1 network/addresses
+      properties:
+        address:
+          type: string
+        prefix:
+          type: integer
+        mutable:
+          type: boolean
+    DNS:
+      type: object
+      additionalProperties: False
+      description: 8.2.2 network/dns
+      properties:
+        address:
+          type: string
+        mutable:
+          type: boolean
+
+    SNMP:
+      type: object
+      additionalProperties: False
+      description: 8.7 snmp
+      properties:
+        engineId:
+          type: string
+        port:
+          type: integer
+        readCommunity:
+          type: string
+        target:
+           type: object
+           additionalProperties: False
+        trapCommunity:
+          type: string
+        v1v2cEnabled:
+          type: boolean
+        v3Enabled:
+          type: boolean
+        writeCommunity:
+          type: string
+        user:
+          type: object
+          additionalProperties:
+            type: object
+            additionalProperties: False
+            properties:
+              authPassword:
+                type: string
+              authPasswordSet:
+                type: boolean
+              authType:
+                type: string
+              privPassword:
+                type: string
+              privPasswordSet:
+                type: boolean
+              privType:
+                type: string
+              type:
+                type: string
+              username:
+                type: string
+
+    System:
+      description: 9.1 Top Level
+      type: object
+      additionalProperties: False
+      properties:
+        name:
+          type: string
+        oem:
+          type: string
+        platform:
+          type: string
+        label:
+          type: string
+        state:
+          $ref: "#/components/schemas/State"
+        version:
+          type: string
+        model:
+          type: string
+        modelNumber:
+          type: string
+        partNumber:
+          type: string
+        serialNumber:
+          type: string
+        build:
+          type: string
+        appVersion:
+          type: string
+        apiVersion:
+          type: string
+        locale:
+          type: object
+          additionalProperties: False
+          properties:
+            defaultLang:
+              type: string
+            units:
+              type: string
+              enum: [metric,imperial]
+        contact:
+          type: object
+          additionalProperties: False
+          properties:
+            description:
+              type: string
+            location:
+              type: string
+            contactEmail:
+              type: string
+            contactName:
+              type: string
+            contactPhone:
+              type: string
+        component:
+          type: object
+          additionalProperties:
+            $ref: "#/components/schemas/Component"
+
+    State:
+      description: 9.2 state
+      type: object
+      additionalProperties: False
+      properties:
+        alarm:
+          $ref: "#/components/schemas/AlarmState"
+        warnCount:
+          type: integer
+          example: 1
+        alarmCount:
+          type: integer
+          example: 2
+        localTime:
+          type: string
+          example: "2012-11-15 16:25:45"
+        systemTime:
+          type: integer
+          example: 123456789
+          description: "[unix timestamp (UTC) seconds from epoch]"
+        dirty:
+          type: integer
+          example: 35
+          description: "[integer]"
+        uptime:
+          type: integer
+          example: 123456789
+          description: "[seconds since last boot time]"
+        component:
+          type: string
+          description: '"ok" / "updating 1/2: gmsd 10%"'
+        guestEnabled:
+          type: boolean
+          description: true/false
+        adminExists:
+          type: boolean
+          description: true/false
+
+    Component:
+      description: 9.3 component
+      type: object
+      additionalProperties: False
+      properties:
+        type:
+          type: string
+          example: "boardTypeID"
+        version:
+          type: string
+          example: "1.2.3"
+        sn:
+          type: string
+          example: "123456789ABC"
+        state:
+          type: string
+          enum: [active,inactive]
+
+    User:
+      description: 10.0 /api/auth (Users and User Authentication)
+      type: object
+      additionalProperties: False
+      properties:
+        passwordSet:
+          type: boolean
+        password:
+          type: string
+        language:
+          type: string
+        enabled:
+          type: boolean
+        control:
+          type: boolean
+        admin:
+          type: boolean
+        source:
+          type: string
+          enum: [local,ldap]
+        scope:
+          type: string
+        publicKey:
+          type: object
+          additionalProperties: False
+
+    Defaults: {}

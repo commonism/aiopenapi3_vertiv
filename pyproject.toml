@@ -1,0 +1,14 @@
+[project]
+name = "aiopenapi3_vertiv"
+version = "0.1.0"
+description = "OpenAPI3 description document for geist / Vertiv PDUs"
+authors = [
+    {name = "Markus Kötter", email = "koetter@cispa.de"},
+]
+dependencies = []
+requires-python = ">=3.8.*"
+readme = "README.md"
+license = {text = "MIT"}
+
+[tool.pdm]
+distribution = false
