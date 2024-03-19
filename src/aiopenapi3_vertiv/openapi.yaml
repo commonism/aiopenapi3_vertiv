@@ -25,7 +25,7 @@ paths:
             application/json:
               schema:
                 type: object
-                additionalProperties: False
+                additionalProperties: false
                 properties:
                   retCode:
                     type: integer
@@ -58,7 +58,7 @@ paths:
           application/json:
             schema:
               type: object
-              additionalProperties: False
+              additionalProperties: false
               discriminator:
                 propertyName: cmd
                 mapping:
@@ -66,7 +66,7 @@ paths:
                   reset:   "#/paths/~1dev~1{device}~1outlet~1{outlet}/post/requestBody/content/application~1json/schema/oneOf/1"
               oneOf:
               - type: object
-                additionalProperties: False
+                additionalProperties: false
                 properties:
                     token:
                       type: string
@@ -78,7 +78,7 @@ paths:
                       default: "control"
                     data:
                       type: object
-                      additionalProperties: False
+                      additionalProperties: false
                       properties:
                         action:
                           enum:
@@ -90,7 +90,7 @@ paths:
                           type: boolean
 
               - type: object
-                additionalProperties: False
+                additionalProperties: false
                 properties:
                     token:
                       type: string
@@ -102,7 +102,7 @@ paths:
                       default: "reset"
                     data:
                       type: object
-                      additionalProperties: False
+                      additionalProperties: false
                       properties:
                         target:
                           type: string
@@ -133,7 +133,7 @@ paths:
           application/json:
             schema:
               type: object
-              additionalProperties: False
+              additionalProperties: false
               discriminator:
                 propertyName: cmd
                 mapping:
@@ -141,7 +141,7 @@ paths:
                   reset:   "#/paths/~1dev~1{device}~1outlet~1{outlet}/post/requestBody/content/application~1json/schema/oneOf/1"
               oneOf:
               - type: object
-                additionalProperties: False
+                additionalProperties: false
                 properties:
                     token:
                       type: string
@@ -153,7 +153,7 @@ paths:
                       default: "control"
                     data:
                       type: object
-                      additionalProperties: False
+                      additionalProperties: false
                       properties:
                         action:
                           enum:
@@ -165,7 +165,7 @@ paths:
                           type: boolean
 
               - type: object
-                additionalProperties: False
+                additionalProperties: false
                 properties:
                     token:
                       type: string
@@ -177,7 +177,7 @@ paths:
                       default: "reset"
                     data:
                       type: object
-                      additionalProperties: False
+                      additionalProperties: false
                       properties:
                         target:
                           type: string
@@ -208,7 +208,7 @@ paths:
             application/json:
               schema:
                 type: object
-                additionalProperties: False
+                additionalProperties: false
                 properties:
                   retCode:
                     type: integer
@@ -236,7 +236,7 @@ paths:
             application/json:
               schema:
                 type: object
-                additionalProperties: False
+                additionalProperties: false
                 properties:
                   retCode:
                     type: integer
@@ -264,7 +264,7 @@ paths:
             application/json:
               schema:
                 type: object
-                additionalProperties: False
+                additionalProperties: false
                 properties:
                   retCode:
                     type: integer
@@ -295,7 +295,7 @@ paths:
             application/json:
               schema:
                 type: object
-                additionalProperties: True
+                additionalProperties: true
 
   /conf/network/dns:
     post:
@@ -317,7 +317,7 @@ paths:
             application/json:
               schema:
                 type: object
-                additionalProperties: True
+                additionalProperties: true
 
   /conf/contact:
     post:
@@ -339,7 +339,7 @@ paths:
             application/json:
               schema:
                 type: object
-                additionalProperties: True
+                additionalProperties: true
 
 
   /conf/system:
@@ -362,7 +362,7 @@ paths:
             application/json:
               schema:
                 type: object
-                additionalProperties: True
+                additionalProperties: true
 
   /conf/report:
     post:
@@ -384,7 +384,7 @@ paths:
             application/json:
               schema:
                 type: object
-                additionalProperties: True
+                additionalProperties: true
 
   /conf/email:
     post:
@@ -406,7 +406,7 @@ paths:
             application/json:
               schema:
                 type: object
-                additionalProperties: True
+                additionalProperties: true
 
   /conf/email/target:
     post:
@@ -428,7 +428,7 @@ paths:
             application/json:
               schema:
                 type: object
-                additionalProperties: True
+                additionalProperties: true
 
   /conf/email/status:
     post:
@@ -448,7 +448,7 @@ paths:
             application/json:
               schema:
                 type: object
-                additionalProperties: True
+                additionalProperties: true
 
   /conf/snmp:
     post:
@@ -470,7 +470,7 @@ paths:
             application/json:
               schema:
                 type: object
-                additionalProperties: False
+                additionalProperties: false
                 properties:
                   retCode:
                     type: integer
@@ -497,7 +497,7 @@ paths:
             application/json:
               schema:
                 type: object
-                additionalProperties: False
+                additionalProperties: false
                 properties:
                   retCode:
                     type: integer
@@ -525,7 +525,7 @@ paths:
             application/json:
               schema:
                 type: object
-                additionalProperties: False
+                additionalProperties: false
                 properties:
                   retCode:
                     type: integer
@@ -558,7 +558,7 @@ paths:
           application/json:
             schema:
               type: object
-              additionalProperties: False
+              additionalProperties: false
               discriminator:
                 propertyName: cmd
                 mapping:
@@ -567,7 +567,7 @@ paths:
 
               oneOf:
               - type: object
-                additionalProperties: False
+                additionalProperties: false
                 properties:
                   token:
                     type: string
@@ -578,7 +578,7 @@ paths:
                     default: "login"
                   data:
                     type: object
-                    additionalProperties: False
+                    additionalProperties: false
                     properties:
                       password:
                         type: string
@@ -589,7 +589,7 @@ paths:
                   - data
 
               - type: object
-                additionalProperties: False
+                additionalProperties: false
                 properties:
                   token:
                     type: string
@@ -599,7 +599,7 @@ paths:
                     default: "logout"
                   data:
                     type: object
-                    additionalProperties: False
+                    additionalProperties: false
                 required:
                   - token
                   - cmd
@@ -612,18 +612,18 @@ paths:
             application/json:
               schema:
                 type: object
-                additionalProperties: False
+                additionalProperties: false
                 anyOf:
                  - $ref: "#/components/schemas/Response"
 
                 oneOf:
                   - type: object
                     description: login response
-                    additionalProperties: False
+                    additionalProperties: false
                     properties:
                       data:
                         type: object
-                        additionalProperties: False
+                        additionalProperties: false
                         properties:
                           token:
                             type: string
@@ -646,13 +646,13 @@ paths:
                           - source
                           - scope
                   - type: object
-                    additionalProperties: False
+                    additionalProperties: false
 
 components:
   schemas:
     Response:
       type: object
-      additionalProperties: False
+      additionalProperties: false
       properties:
         retCode:
           type: integer
@@ -674,7 +674,7 @@ components:
 
     Device:
       type: object
-      additionalProperties: False
+      additionalProperties: false
       description: 4.2 __SERIAL_NUM__
       discriminator:
         propertyName: type
@@ -689,7 +689,7 @@ components:
 
     i03:
       type: object
-      additionalProperties: False
+      additionalProperties: false
       description: 4.2 __SERIAL_NUM__
       properties:
         type:
@@ -731,19 +731,19 @@ components:
           type: integer
         conf:
           type: object
-          additionalProperties: False
+          additionalProperties: false
           properties:
             outletControlEnabled:
               type: boolean
         point:
           type: object
-          additionalProperties: False
+          additionalProperties: false
           properties:
             pseCompliant:
               type: object
             meterType:
               type: object
-              additionalProperties: False
+              additionalProperties: false
               properties:
                 value:
                   type: string
@@ -767,7 +767,7 @@ components:
 
     thd:
       type: object
-      additionalProperties: False
+      additionalProperties: false
       description: 4.2 __SERIAL_NUM__
       properties:
         type:
@@ -811,7 +811,7 @@ components:
 
     t3hd:
       type: object
-      additionalProperties: False
+      additionalProperties: false
       description: 4.2 __SERIAL_NUM__
       properties:
         type:
@@ -857,7 +857,7 @@ components:
 
     Measurement:
       type: object
-      additionalProperties: False
+      additionalProperties: false
       description: 4.2.1 Measurement
       properties:
         type:
@@ -898,7 +898,7 @@ components:
 
     AnalogInput:
       type: object
-      additionalProperties: False
+      additionalProperties: false
       description: 4.2.2 Analog Inputs
       properties:
         type:
@@ -948,7 +948,7 @@ components:
 
     Outlet:
       type: object
-      additionalProperties: False
+      additionalProperties: false
       description: 4.2.3 Outlet
       properties:
         group:
@@ -1016,7 +1016,7 @@ components:
 
     Entity:
       type: object
-      additionalProperties: False
+      additionalProperties: false
       description: 4.2.4 Entity
       properties:
         name:
@@ -1031,11 +1031,11 @@ components:
             $ref: "#/components/schemas/Measurement"
         conf:
           type: object
-          additionalProperties: False
+          additionalProperties: false
 
         point:
           type: object
-          additionalProperties: False
+          additionalProperties: false
           properties:
             lossOfLoadDetected:
               $ref: "#/components/schemas/BooleanValue"
@@ -1044,14 +1044,14 @@ components:
 
     BooleanValue:
       type: object
-      additionalProperties: False
+      additionalProperties: false
       properties:
         value:
           type: boolean
 
     Relay:
       type: object
-      additionalProperties: False
+      additionalProperties: false
       description: 4.2.5 Relay
       properties:
         name:
@@ -1079,7 +1079,7 @@ components:
 
     Alarm:
       type: object
-      additionalProperties: False
+      additionalProperties: false
       description: 5.1 Top Level
       properties:
         trigger:
@@ -1101,7 +1101,7 @@ components:
 
     Trigger:
       type: object
-      additionalProperties: False
+      additionalProperties: false
       description: 5.2 trigger
       properties:
         state:
@@ -1140,7 +1140,7 @@ components:
 
     Action:
       type: object
-      additionalProperties: False
+      additionalProperties: false
       description: 5.3 action
       properties:
         target:
@@ -1154,7 +1154,7 @@ components:
 
     Target:
       type: object
-      additionalProperties: False
+      additionalProperties: false
       description: 5.4 target
       properties:
         name:
@@ -1172,7 +1172,7 @@ components:
 
     Interval:
       type: object
-      additionalProperties: False
+      additionalProperties: false
       description: 5.5 validTime
       properties:
         start:
@@ -1188,7 +1188,7 @@ components:
 
     AlarmState:
       type: object
-      additionalProperties: False
+      additionalProperties: false
       properties:
         state:
           enum:
@@ -1208,7 +1208,7 @@ components:
 
     Configuration:
       type: object
-      additionalProperties: False
+      additionalProperties: false
       description: 8.1 Top Level
       properties:
         network:
@@ -1252,7 +1252,7 @@ components:
 
         serial:
           type: object
-          additionalProperties: False
+          additionalProperties: false
           properties:
             stopBits:
               type: integer
@@ -1267,28 +1267,28 @@ components:
 
         datalog:
           type: object
-          additionalProperties: False
+          additionalProperties: false
           properties:
             interval:
               type: integer
 
         usb:
           type: object
-          additionalProperties: False
+          additionalProperties: false
           properties:
             dev:
               type: object
-              additionalProperties: False
+              additionalProperties: false
             enabled:
               type: boolean
 
         modbus:
           type: object
-          additionalProperties: False
+          additionalProperties: false
           properties:
             tcp:
               type: object
-              additionalProperties: False
+              additionalProperties: false
               properties:
                 enabled:
                   type: boolean
@@ -1298,7 +1298,7 @@ components:
               type: string
         ssh:
           type: object
-          additionalProperties: False
+          additionalProperties: false
           properties:
             port:
               type: integer
@@ -1306,7 +1306,7 @@ components:
               type: boolean
         system:
           type: object
-          additionalProperties: False
+          additionalProperties: false
           properties:
             label:
               type: string
@@ -1321,7 +1321,7 @@ components:
 
     OneView:
       type: object
-      additionalProperties: False
+      additionalProperties: false
       properties:
         password:
           type: string
@@ -1333,7 +1333,7 @@ components:
           type: string
         auto:
           type: object
-          additionalProperties: False
+          additionalProperties: false
           properties:
             downstreamInterface:
               type: string
@@ -1348,23 +1348,23 @@ components:
 
     Display:
       type: object
-      additionalProperties: False
+      additionalProperties: false
       properties:
         gmsd:
           type: object
-          additionalProperties: False
+          additionalProperties: false
           properties:
             inverted:
               type: boolean
             vlc:
               type: object
-              additionalProperties: False
+              additionalProperties: false
               properties:
                 enabled:
                   type: boolean
             dataSource:
               type: object
-              additionalProperties: False
+              additionalProperties: false
               properties:
                 totalPower:
                   type: boolean
@@ -1377,11 +1377,11 @@ components:
 
     Auth:
       type: object
-      additionalProperties: False
+      additionalProperties: false
       properties:
         passwordRules:
           type: object
-          additionalProperties: False
+          additionalProperties: false
           properties:
             allowRepeatCharacters:
               type: boolean
@@ -1398,12 +1398,12 @@ components:
 
         scope:
           type: object
-          additionalProperties: False
+          additionalProperties: false
 
 
     RemoteAuth:
           type: object
-          additionalProperties: False
+          additionalProperties: false
           properties:
             radius:
               $ref: "#/components/schemas/RADIUS"
@@ -1416,7 +1416,7 @@ components:
 
     RADIUS:
       type: object
-      additionalProperties: False
+      additionalProperties: false
       properties:
         host:
           type: string
@@ -1444,7 +1444,7 @@ components:
 
     TACAS:
       type: object
-      additionalProperties: False
+      additionalProperties: false
       properties:
         service:
           type: string
@@ -1471,7 +1471,7 @@ components:
 
     LDAP:
       type: object
-      additionalProperties: False
+      additionalProperties: false
       properties:
         mode:
           type: string
@@ -1514,7 +1514,7 @@ components:
 
     Network:
       type: object
-      additionalProperties: False
+      additionalProperties: false
       description: 8.2 network
       properties:
         enabled:
@@ -1539,11 +1539,11 @@ components:
           type: string
         link:
           type: object
-          additionalProperties: False
+          additionalProperties: false
           properties:
             stat:
               type: object
-              additionalProperties: False
+              additionalProperties: false
               properties:
                 rxCount:
                   type: integer
@@ -1580,7 +1580,7 @@ components:
           type: object
           additionalProperties:
             type: object
-            additionalProperties: False
+            additionalProperties: false
             properties:
               destination:
                 type: string
@@ -1594,7 +1594,7 @@ components:
                 type: integer
         stp:
           type: object
-          additionalProperties: False
+          additionalProperties: false
           properties:
             bridgePriority:
               type: integer
@@ -1625,7 +1625,7 @@ components:
           - enum: [null]
     Address:
       type: object
-      additionalProperties: False
+      additionalProperties: false
       description: 8.2.1 network/addresses
       properties:
         address:
@@ -1636,7 +1636,7 @@ components:
           type: boolean
     DNS:
       type: object
-      additionalProperties: False
+      additionalProperties: false
       description: 8.2.2 network/dns
       properties:
         address:
@@ -1646,7 +1646,7 @@ components:
 
     SNMP:
       type: object
-      additionalProperties: False
+      additionalProperties: false
       description: 8.7 snmp
       properties:
         engineId:
@@ -1657,7 +1657,7 @@ components:
           type: string
         target:
            type: object
-           additionalProperties: False
+           additionalProperties: false
         trapCommunity:
           type: string
         v1v2cEnabled:
@@ -1670,7 +1670,7 @@ components:
           type: object
           additionalProperties:
             type: object
-            additionalProperties: False
+            additionalProperties: false
             properties:
               authPassword:
                 type: string
@@ -1692,7 +1692,7 @@ components:
     System:
       description: 9.1 Top Level
       type: object
-      additionalProperties: False
+      additionalProperties: false
       properties:
         name:
           type: string
@@ -1722,7 +1722,7 @@ components:
           type: string
         locale:
           type: object
-          additionalProperties: False
+          additionalProperties: false
           properties:
             defaultLang:
               type: string
@@ -1731,7 +1731,7 @@ components:
               enum: [metric,imperial]
         contact:
           type: object
-          additionalProperties: False
+          additionalProperties: false
           properties:
             description:
               type: string
@@ -1751,7 +1751,7 @@ components:
     State:
       description: 9.2 state
       type: object
-      additionalProperties: False
+      additionalProperties: false
       properties:
         alarm:
           $ref: "#/components/schemas/AlarmState"
@@ -1789,7 +1789,7 @@ components:
     Component:
       description: 9.3 component
       type: object
-      additionalProperties: False
+      additionalProperties: false
       properties:
         type:
           type: string
@@ -1807,7 +1807,7 @@ components:
     User:
       description: 10.0 /api/auth (Users and User Authentication)
       type: object
-      additionalProperties: False
+      additionalProperties: false
       properties:
         passwordSet:
           type: boolean
@@ -1828,6 +1828,6 @@ components:
           type: string
         publicKey:
           type: object
-          additionalProperties: False
+          additionalProperties: false
 
     Defaults: {}
