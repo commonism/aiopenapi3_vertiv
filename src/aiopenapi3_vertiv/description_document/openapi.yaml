@@ -26,15 +26,16 @@ paths:
               schema:
                 type: object
                 additionalProperties: false
-                properties:
-                  retCode:
-                    type: integer
-                  retMsg:
-                    type: string
-                  data:
-                    type: object
-                    additionalProperties:
-                      $ref: "#/components/schemas/Device"
+                allOf:
+                - $ref: "#/components/schemas/Response"
+                oneOf:
+                - type: object
+                  additionalProperties: false
+                  properties:
+                    data:
+                      type: object
+                      additionalProperties:
+                        $ref: "#/components/schemas/Device"
 
   /dev/{device}/outlet/{outlet}:
     parameters:
@@ -62,51 +63,13 @@ paths:
               discriminator:
                 propertyName: cmd
                 mapping:
-                  control: "#/paths/~1dev~1{device}~1outlet~1{outlet}/post/requestBody/content/application~1json/schema/oneOf/0"
-                  reset:   "#/paths/~1dev~1{device}~1outlet~1{outlet}/post/requestBody/content/application~1json/schema/oneOf/1"
+                  control: "#/components/schemas/OutletRequestControl"
+                  reset:   "#/components/schemas/OutletRequestReset"
+                  set:     "#/components/schemas/OutletRequestSet"
               oneOf:
-              - type: object
-                additionalProperties: false
-                properties:
-                    token:
-                      type: string
-                      default: ""
-                    cmd:
-                      type: string
-                      enum:
-                        - "control"
-                      default: "control"
-                    data:
-                      type: object
-                      additionalProperties: false
-                      properties:
-                        action:
-                          enum:
-                          - "on"
-                          - "off"
-                          - reboot
-                          - cancel
-                        delay:
-                          type: boolean
-
-              - type: object
-                additionalProperties: false
-                properties:
-                    token:
-                      type: string
-                      default: ""
-                    cmd:
-                      type: string
-                      enum:
-                        - "reset"
-                      default: "reset"
-                    data:
-                      type: object
-                      additionalProperties: false
-                      properties:
-                        target:
-                          type: string
-                          enum: [energy]
+                - $ref: "#/components/schemas/OutletRequestControl"
+                - $ref: "#/components/schemas/OutletRequestReset"
+                - $ref: "#/components/schemas/OutletRequestSet"
 
       responses:
         '200':
@@ -137,51 +100,11 @@ paths:
               discriminator:
                 propertyName: cmd
                 mapping:
-                  control: "#/paths/~1dev~1{device}~1outlet~1{outlet}/post/requestBody/content/application~1json/schema/oneOf/0"
-                  reset:   "#/paths/~1dev~1{device}~1outlet~1{outlet}/post/requestBody/content/application~1json/schema/oneOf/1"
+                  control: "#/components/schemas/DeviceRequestControl"
+                  reset: "#/components/schemas/DeviceRequestReset"
               oneOf:
-              - type: object
-                additionalProperties: false
-                properties:
-                    token:
-                      type: string
-                      default: ""
-                    cmd:
-                      type: string
-                      enum:
-                        - "control"
-                      default: "control"
-                    data:
-                      type: object
-                      additionalProperties: false
-                      properties:
-                        action:
-                          enum:
-                          - "on"
-                          - "off"
-                          - reboot
-                          - cancel
-                        delay:
-                          type: boolean
-
-              - type: object
-                additionalProperties: false
-                properties:
-                    token:
-                      type: string
-                      default: ""
-                    cmd:
-                      type: string
-                      enum:
-                        - "reset"
-                      default: "reset"
-                    data:
-                      type: object
-                      additionalProperties: false
-                      properties:
-                        target:
-                          type: string
-                          enum: [energy, minmax]
+              - $ref: "#/components/schemas/DeviceRequestControl"
+              - $ref: "#/components/schemas/DeviceRequestReset"
 
       responses:
         '200':
@@ -209,13 +132,14 @@ paths:
               schema:
                 type: object
                 additionalProperties: false
-                properties:
-                  retCode:
-                    type: integer
-                  retMsg:
-                    type: string
-                  data:
-                    $ref: "#/components/schemas/Alarm"
+                allOf:
+                - $ref: "#/components/schemas/Response"
+                oneOf:
+                - type: object
+                  additionalProperties: false
+                  properties:
+                    data:
+                      $ref: "#/components/schemas/Alarm"
 
 
   /conf:
@@ -237,13 +161,14 @@ paths:
               schema:
                 type: object
                 additionalProperties: false
-                properties:
-                  retCode:
-                    type: integer
-                  retMsg:
-                    type: string
-                  data:
-                    $ref: "#/components/schemas/Configuration"
+                allOf:
+                - $ref: "#/components/schemas/Response"
+                oneOf:
+                - type: object
+                  additionalProperties: false
+                  properties:
+                    data:
+                      $ref: "#/components/schemas/Configuration"
 
 
   /conf/network:
@@ -265,15 +190,16 @@ paths:
               schema:
                 type: object
                 additionalProperties: false
-                properties:
-                  retCode:
-                    type: integer
-                  retMsg:
-                    type: string
-                  data:
-                    type: object
-                    additionalProperties:
-                      $ref: "#/components/schemas/Network"
+                allOf:
+                - $ref: "#/components/schemas/Response"
+                oneOf:
+                - type: object
+                  additionalProperties: false
+                  properties:
+                    data:
+                      type: object
+                      additionalProperties:
+                        $ref: "#/components/schemas/Network"
 
   /conf/network/addresses:
     post:
@@ -471,13 +397,14 @@ paths:
               schema:
                 type: object
                 additionalProperties: false
-                properties:
-                  retCode:
-                    type: integer
-                  retMsg:
-                    type: string
-                  data:
-                    $ref: "#/components/schemas/SNMP"
+                allOf:
+                - $ref: "#/components/schemas/Response"
+                oneOf:
+                - type: object
+                  additionalProperties: false
+                  properties:
+                    data:
+                      $ref: "#/components/schemas/SNMP"
   /sys:
     post:
       operationId: sys
@@ -498,13 +425,14 @@ paths:
               schema:
                 type: object
                 additionalProperties: false
-                properties:
-                  retCode:
-                    type: integer
-                  retMsg:
-                    type: string
-                  data:
-                    $ref: "#/components/schemas/System"
+                allOf:
+                - $ref: "#/components/schemas/Response"
+                oneOf:
+                - type: object
+                  additionalProperties: false
+                  properties:
+                    data:
+                      $ref: "#/components/schemas/System"
 
 
   /auth/:
@@ -526,16 +454,17 @@ paths:
               schema:
                 type: object
                 additionalProperties: false
-                properties:
-                  retCode:
-                    type: integer
-                  retMsg:
-                    type: string
-                  data:
-                    type: object
-                    additionalProperties:
-                      $ref: "#/components/schemas/User"
+                allOf:
+                - $ref: "#/components/schemas/Response"
 
+                oneOf:
+                  - type: object
+                    additionalProperties: false
+                    properties:
+                      data:
+                        type: object
+                        additionalProperties:
+                          $ref: "#/components/schemas/User"
 
   /auth/{user}:
     parameters:
@@ -562,48 +491,12 @@ paths:
               discriminator:
                 propertyName: cmd
                 mapping:
-                  login: "#/paths/~1auth~1{user}/post/requestBody/content/application~1json/schema/oneOf/0"
-                  logout: "#/paths/~1auth~1{user}/post/requestBody/content/application~1json/schema/oneOf/1"
+                  login: "#/components/schemas/UserLoginRequest"
+                  logout: "#/components/schemas/UserLogoutRequest"
 
               oneOf:
-              - type: object
-                additionalProperties: false
-                properties:
-                  token:
-                    type: string
-                    default: ""
-                  cmd:
-                    type: string
-                    enum: [login]
-                    default: "login"
-                  data:
-                    type: object
-                    additionalProperties: false
-                    properties:
-                      password:
-                        type: string
-                    required:
-                      - password
-                required:
-                  - cmd
-                  - data
-
-              - type: object
-                additionalProperties: false
-                properties:
-                  token:
-                    type: string
-                  cmd:
-                    type: string
-                    enum: [logout]
-                    default: "logout"
-                  data:
-                    type: object
-                    additionalProperties: false
-                required:
-                  - token
-                  - cmd
-                  - data
+              - $ref: "#/components/schemas/UserLoginRequest"
+              - $ref: "#/components/schemas/UserLogoutRequest"
 
       responses:
         '200':
@@ -613,43 +506,23 @@ paths:
               schema:
                 type: object
                 additionalProperties: false
-                anyOf:
-                 - $ref: "#/components/schemas/Response"
+                allOf:
+                - $ref: "#/components/schemas/Response"
 
                 oneOf:
-                  - type: object
-                    description: login response
-                    additionalProperties: false
-                    properties:
-                      data:
-                        type: object
-                        additionalProperties: false
-                        properties:
-                          token:
-                            type: string
-                          language:
-                            type: string
-                          admin:
-                            type: boolean
-                          control:
-                            type: boolean
-                          source:
-                            type: string
-                          scope:
-                            type: string
-                            nullable: true
-                        required:
-                          - token
-                          - language
-                          - admin
-                          - control
-                          - source
-                          - scope
-                  - type: object
-                    additionalProperties: false
+                - $ref: "#/components/schemas/UserLoginResponseSuccess"
+                - type: object
+                  additionalProperties: false
 
 components:
   schemas:
+    AuthenticatedRequest:
+      type: object
+      additionalProperties: false
+      properties:
+        token:
+          type: string
+
     Response:
       type: object
       additionalProperties: false
@@ -689,6 +562,50 @@ components:
       - $ref: "#/components/schemas/thd"
       - $ref: "#/components/schemas/t3hd"
       - $ref: "#/components/schemas/remotetemp"
+
+    DeviceRequestControl:
+      type: object
+      additionalProperties: false
+      allOf:
+      - $ref: "#/components/schemas/AuthenticatedRequest"
+      properties:
+          cmd:
+            type: string
+            enum:
+              - "control"
+            default: "control"
+          data:
+            type: object
+            additionalProperties: false
+            properties:
+              action:
+                enum:
+                - "on"
+                - "off"
+                - reboot
+                - cancel
+              delay:
+                type: boolean
+
+    DeviceRequestReset:
+      type: object
+      additionalProperties: false
+      allOf:
+      - $ref: "#/components/schemas/AuthenticatedRequest"
+      properties:
+          cmd:
+            type: string
+            enum:
+              - "reset"
+            default: "reset"
+          data:
+            type: object
+            additionalProperties: false
+            properties:
+              target:
+                type: string
+                enum: [energy, minmax]
+
 
     i03:
       type: object
@@ -1061,6 +978,81 @@ components:
           type: string
         snmpInstance:
           type: integer
+
+    OutletRequestControl:
+      type: object
+      additionalProperties: false
+      allOf:
+      - $ref: "#/components/schemas/AuthenticatedRequest"
+      properties:
+        cmd:
+          type: string
+          enum:
+            - "control"
+          default: "control"
+        data:
+          type: object
+          additionalProperties: false
+          properties:
+            action:
+              enum:
+              - "on"
+              - "off"
+              - reboot
+              - cancel
+            delay:
+              type: boolean
+    OutletRequestReset:
+      type: object
+      additionalProperties: false
+      allOf:
+      - $ref: "#/components/schemas/AuthenticatedRequest"
+      properties:
+        cmd:
+          type: string
+          enum:
+            - "reset"
+          default: "reset"
+        data:
+          type: object
+          additionalProperties: false
+          properties:
+            target:
+              type: string
+              enum: [energy]
+
+    OutletRequestSet:
+      type: object
+      additionalProperties: false
+      allOf:
+      - $ref: "#/components/schemas/AuthenticatedRequest"
+      properties:
+        cmd:
+          type: string
+          enum:
+            - "set"
+          default: "set"
+        data:
+          type: object
+          properties:
+            label:
+              type: string
+            mode:
+              type: string
+              enum: ["manual", "alarmAnyOff"]
+            offDelay:
+              type: integer
+            onDelay:
+              type: integer
+            poaAction:
+              type: integer
+            poaDelay:
+              type: integer
+            rebootDelay:
+              type: boolean
+            rebootHoldDelay:
+              type: integer
+
 
     Entity:
       type: object
@@ -1877,5 +1869,77 @@ components:
         publicKey:
           type: object
           additionalProperties: false
+
+    UserLoginRequest:
+      type: object
+      additionalProperties: false
+      properties:
+        token:
+          type: string
+          default: ""
+        cmd:
+          type: string
+          enum: [login]
+          default: "login"
+        data:
+          type: object
+          additionalProperties: false
+          properties:
+            password:
+              type: string
+          required:
+            - password
+      required:
+        - cmd
+        - data
+
+    UserLogoutRequest:
+      type: object
+      additionalProperties: false
+      properties:
+        token:
+          type: string
+        cmd:
+          type: string
+          enum: [logout]
+          default: "logout"
+        data:
+          type: object
+          additionalProperties: false
+      required:
+        - token
+        - cmd
+        - data
+
+    UserLoginResponseSuccess:
+      type: object
+      description: login response
+      additionalProperties: false
+      properties:
+        data:
+          type: object
+          additionalProperties: false
+          properties:
+            token:
+              type: string
+            language:
+              type: string
+            admin:
+              type: boolean
+            control:
+              type: boolean
+            source:
+              type: string
+            scope:
+              type: string
+              nullable: true
+          required:
+            - token
+            - language
+            - admin
+            - control
+            - source
+            - scope
+
 
     Defaults: {}
