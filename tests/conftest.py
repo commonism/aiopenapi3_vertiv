@@ -2,16 +2,17 @@ from typing import Optional
 from pathlib import Path
 
 import pydantic
-from aiopenapi3 import OpenAPI, FileSystemLoader
-import aiopenapi3.debug
 
 import pytest
 import pytest_asyncio
 import httpx
 import httpx_socks
+import yarl
+
+import aiopenapi3.debug
+from aiopenapi3_vertiv import createAPI
 
 ROOT_DIR = Path(__file__).parent.parent
-DD = ROOT_DIR / "src/aiopenapi3_vertiv/description_document/openapi.yaml"
 
 
 class Config(pydantic.BaseModel):
@@ -32,13 +33,13 @@ async def client(conf):
     def socks(*args, **kwargs) -> httpx.AsyncClient:
         if conf.socks5:
             kwargs["transport"] = httpx_socks.AsyncProxyTransport.from_url(conf.socks5, verify=False)
+        if False:
+            kwargs["event_hooks"] = aiopenapi3.debug.httpx_debug_event_hooks_async()
         kwargs["timeout"] = httpx.Timeout(connect=10, read=30, write=30, pool=30)
-        #        kwargs["event_hooks"] = aiopenapi3.debug.httpx_debug_event_hooks_async()
+
         return httpx.AsyncClient(*args, **kwargs)
 
-    client = OpenAPI.load_file(
-        conf.url + "/openapi.yaml", DD.name, session_factory=socks, loader=FileSystemLoader(DD.parent)
-    )
+    client = createAPI(yarl.URL(conf.url).host, session_factory=socks)
     return client
 
 
