@@ -12,3 +12,9 @@ license = {text = "MIT"}
 
 [tool.pdm]
 distribution = false
+
+[tool.setuptools.packages.find]
+where = ["src/"]
+
+[tool.setuptools.package-data]
+"aiopenapi3_vertiv.description_document" = ["openapi.yaml"]
