@@ -9,6 +9,8 @@ OpenAPI3 description document for geist / Vertiv PDUs
 Assuming the outlet is labeled with the machine name.
 
 ```python
+from aiopenapi3_vertiv import createAPI
+
 def toggle(name):
     if False:  # get the pdus by querying your NetBox DCIM
         dev = next((r := dcim.nb.dcim.devices.filter(name=name)))
@@ -23,19 +25,17 @@ def toggle(name):
     for pdu in pdus:
         addr = ipaddress.ip_network(pdu).network_address
 
-        client = OpenAPI.load_file(
-            f"http://{addr}/openapi.yaml", DD.name, loader=FileSystemLoader(DD.parent)
-        )
+        api = createAPI(addr)
 
         # authenticate to the pdu to get the token
-        r = client._.auth(
-            parameters=dict(user=auth[0]), data=client._.auth.data.get_type()(cmd="login", data={"password": auth[1]})
+        r = api._.auth(
+            parameters=dict(user=auth[0]), data=api._.auth.data.get_type()(cmd="login", data={"password": auth[1]})
         )
         assert r.data.token
         assert r.retMsg == "Success"
 
         token = r.data.token
-        r = client._.dev(data=client._.dev.data.get_type()(token=token))
+        r = api._.dev(data=api._.dev.data.get_type()(token=token))
 
         # i03 is the rPDU unit controlling the outlets
         device, i03 = next(filter(lambda x: x[1].root.type == "i03", r.data.root.items()))
@@ -45,13 +45,13 @@ def toggle(name):
             print(outlet.name)
 
             # set mode to manual
-            data = client._.outlet.data.get_type().model_validate({'cmd': "set", "token": token, "data": {"mode":"manual"}})
-            r = client._.outlet(parameters={"device": device, "outlet": oid}, data=data.model_dump(exclude_unset=True))
+            data = api._.outlet.data.get_type().model_validate({'cmd': "set", "token": token, "data": {"mode":"manual"}})
+            r = api._.outlet(parameters={"device": device, "outlet": oid}, data=data.model_dump(exclude_unset=True))
             assert r.retCode == 0, r
 
             # power off
-            data = client._.outlet.data.get_type().model_validate({'cmd':"control", "token":token, "data": {"action": "off", "delay": False}}).model_dump()
-            r = client._.outlet(parameters={"device":device, "outlet":oid}, data=data)
+            data = api._.outlet.data.get_type().model_validate({'cmd':"control", "token":token, "data": {"action": "off", "delay": False}}).model_dump()
+            r = api._.outlet(parameters={"device":device, "outlet":oid}, data=data)
             assert r.retCode == 0, r
 
         # wait for things to settle before powering on again
@@ -62,6 +62,6 @@ def toggle(name):
             print(outlet.name)
             # set mode to "On - if any Alarm Off"
             data = {'cmd': "set", "token": token, "data": {"mode":"alarmAnyOff"}}
-            r = client._.outlet(parameters={"device": device, "outlet": oid}, data=data)
+            r = api._.outlet(parameters={"device": device, "outlet": oid}, data=data)
             assert r.retCode == 0, r
 ```
