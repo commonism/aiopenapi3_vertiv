@@ -682,10 +682,13 @@ components:
           i03: "#/components/schemas/i03"
           thd: "#/components/schemas/thd"
           t3hd: "#/components/schemas/t3hd"
+          remotetemp: "#/components/schemas/remotetemp"
+
       oneOf:
       - $ref: "#/components/schemas/i03"
       - $ref: "#/components/schemas/thd"
       - $ref: "#/components/schemas/t3hd"
+      - $ref: "#/components/schemas/remotetemp"
 
     i03:
       type: object
@@ -852,6 +855,51 @@ components:
         - layout
         - order
         - snmpInstance
+
+    remotetemp:
+      type: object
+      additionalProperties: false
+      description: 4.2 __SERIAL_NUM__
+      properties:
+        type:
+          type: string
+          enum: [t3hd]
+        state:
+          type: string
+          enum:
+          - normal
+          - unavailable
+          - degraded
+        alarm:
+          $ref: "#/components/schemas/AlarmState"
+        name:
+          type: string
+        label:
+          type: string
+        entity:
+          type: object
+          additionalProperties:
+            $ref: "#/components/schemas/Entity"
+        layout:
+          type: object
+          additionalProperties:
+            $ref: "#/components/schemas/Layout"
+        order:
+          type: integer
+        snmpInstance:
+          type: integer
+
+      required:
+        - type
+        - state
+        - alarm
+        - name
+        - label
+        - entity
+        - layout
+        - order
+        - snmpInstance
+
 
     Any: {}
 
