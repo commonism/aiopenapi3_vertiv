@@ -6,7 +6,7 @@ authors = [
     {name = "Markus Kötter", email = "koetter@cispa.de"},
 ]
 dependencies = []
-requires-python = ">=3.8.*"
+requires-python = ">=3.8"
 readme = "README.md"
 license = {text = "MIT"}
 
