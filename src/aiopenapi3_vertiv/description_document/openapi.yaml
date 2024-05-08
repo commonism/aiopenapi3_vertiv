@@ -432,7 +432,7 @@ paths:
                   additionalProperties: false
                   properties:
                     data:
-                      $ref: "#/components/schemas/System"
+                      $ref: "#/components/schemas/Sys"
 
 
   /auth/:
@@ -521,6 +521,8 @@ components:
       additionalProperties: false
       properties:
         token:
+          type: string
+        cmd:
           type: string
 
     Response:
@@ -1345,19 +1347,7 @@ components:
             enabled:
               type: boolean
         system:
-          type: object
-          additionalProperties: false
-          properties:
-            label:
-              type: string
-            ip4Enabled:
-              type: boolean
-            ip6Enabled:
-              type: boolean
-            hostname:
-              type: string
-            factoryAccessEnabled:
-              type: boolean
+          $ref: "#/components/schemas/System"
 
     OneView:
       type: object
@@ -1729,7 +1719,7 @@ components:
               username:
                 type: string
 
-    System:
+    Sys:
       description: 9.1 Top Level
       type: object
       additionalProperties: false
@@ -1770,23 +1760,42 @@ components:
               type: string
               enum: [metric,imperial]
         contact:
-          type: object
-          additionalProperties: false
-          properties:
-            description:
-              type: string
-            location:
-              type: string
-            contactEmail:
-              type: string
-            contactName:
-              type: string
-            contactPhone:
-              type: string
+          $ref: "#/components/schemas/Contact"
         component:
           type: object
           additionalProperties:
             $ref: "#/components/schemas/Component"
+
+    Contact:
+      type: object
+      additionalProperties: false
+      properties:
+        description:
+          type: string
+        location:
+          type: string
+        contactEmail:
+          type: string
+        contactName:
+          type: string
+        contactPhone:
+          type: string
+
+    System:
+      type: object
+      additionalProperties: false
+      properties:
+        label:
+          type: string
+        ip4Enabled:
+          type: boolean
+        ip6Enabled:
+          type: boolean
+        hostname:
+          type: string
+        factoryAccessEnabled:
+          type: boolean
+
 
     State:
       description: 9.2 state
