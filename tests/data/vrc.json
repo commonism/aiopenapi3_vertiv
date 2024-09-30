@@ -1,0 +1,447 @@
+{
+  "M0001": {
+    "name": "VRC",
+    "label": "VRC1",
+    "type": "vrc",
+    "point": {
+      "alarmNumbers": {
+        "value": 1
+      },
+      "eevOpened": {
+        "value": 10
+      },
+      "historyAlarmNumbers": {
+        "value": 54
+      },
+      "hmiShutDownFlag": {
+        "value": false
+      },
+      "remoteShutDownAlarm": {
+        "value": false
+      },
+      "lowPressAlarm": {
+        "value": false
+      },
+      "monitorAddress": {
+        "value": 1
+      },
+      "lpFrequentlyAlarm": {
+        "value": false
+      },
+      "lp": {
+        "value": false
+      },
+      "remoteShutdown": {
+        "value": true
+      },
+      "coolingFlag": {
+        "value": false
+      },
+      "runState": {
+        "value": "off"
+      },
+      "remoteShutDownFlag": {
+        "value": false
+      },
+      "highWaterLevelAlarm": {
+        "value": false
+      },
+      "filterMaintenanceRemind": {
+        "value": false
+      },
+      "softwareShutDownStatus": {
+        "value": false
+      },
+      "waterUnderFloorAlarm": {
+        "value": false
+      },
+      "monitorBaudrate": {
+        "value": "9600"
+      },
+      "highWaterLevelInput": {
+        "value": true
+      },
+      "commonAlarmOutputState": {
+        "value": false
+      },
+      "hpAbnormalRecordCount": {
+        "value": 0
+      },
+      "firstOnFlag": {
+        "value": true
+      },
+      "highPressureSensorFailAlarm": {
+        "value": false
+      },
+      "eevCommunicationFailAlarm": {
+        "value": false
+      },
+      "newAlarmFlag": {
+        "value": false
+      },
+      "highPressAlarm": {
+        "value": false
+      },
+      "hpFrequentlyAlarm": {
+        "value": false
+      },
+      "lowPressureSensorFailAlarm": {
+        "value": false
+      }
+    },
+    "conf": {
+      "hpSensorFailAlarmSetting": "open",
+      "eevShtSettingMax": 67.81,
+      "modelSelect": "R035AK",
+      "systemTimeSec": 7,
+      "commonAlarmOutputDirection": true,
+      "remoteShutdownAlarmSetting": "open",
+      "deadBand": 1.61,
+      "highWaterLevelAlarmSetting": "open",
+      "hpFrequentlyAlarmSetting": "open",
+      "eevCommunicationFailAlarmSetting": "open",
+      "filterMaintenanceSetting": false,
+      "vacuumState": false,
+      "controlMode": "return",
+      "monitorShutDownFlag": true,
+      "hpAlarmSetting": "open",
+      "lpAlarmSetting": "open",
+      "firstOnPassword": 0,
+      "filterMaintenanceRemindTime": 90,
+      "manualRunEnable": false,
+      "onOffSwitch": false,
+      "eevMopPressureSetting": 26.81,
+      "lpSensorFailAlarmSetting": "open",
+      "eevValveCloseShtSetting": 9.71,
+      "hpAbnormalAlarmSettingValue": 36,
+      "systemTimeYear": 2019,
+      "systemTimeMin": 46,
+      "filterMaintenanceRemindSetting": "close",
+      "eevShtSettingMin": 80.59,
+      "remoteShutdownInput": true,
+      "systemTimeMonth": 10,
+      "lpdt": 240,
+      "systemTimeHour": 15,
+      "lpFrequentlyAlarmSetting": "open",
+      "systemTimeDay": 30
+    },
+    "layout": {
+      "0": [
+        "entity/supply0",
+        "entity/return0",
+        "entity/outdoor0",
+        "entity/discharge0",
+        "entity/suction0",
+        "entity/power0",
+        "entity/compressor0",
+        "entity/infan0",
+        "entity/outfan0"
+      ]
+    },
+    "entity": {
+      "outfan0": {
+        "name": "OUTFAN",
+        "point": {},
+        "conf": {
+          "outFanPressureSetting": 8,
+          "outFanMaxPowerVoltage": 100,
+          "outFanStartPressure": 21,
+          "fanSpeed": 0,
+          "outFanMinPowerVoltage": 30
+        },
+        "measurement": {
+          "0": {
+            "type": "fanSpeed"
+          }
+        }
+      },
+      "infan0": {
+        "name": "INFAN",
+        "point": {
+          "infanStartStopCount": {
+            "value": 48
+          },
+          "infanRunTimeHours": {
+            "value": 118
+          }
+        },
+        "conf": {
+          "infanJumpBand3": 0,
+          "infanJumpBand5": 0,
+          "infanLowSpeedStep": 0.1,
+          "infanOutputStatus": false,
+          "infanStartDelayTime": 10,
+          "infanTemperatureD": 0,
+          "infanJumpFrequency4": 0,
+          "infanJumpBand2": 0,
+          "infanStopDelayTime": 30,
+          "infanJumpBand1": 0,
+          "infanTemperatureP": 5,
+          "infanMinCfc": 0,
+          "infanJumpFrequency2": 0,
+          "infanJumpBand4": 0,
+          "infanHighSpeedStep": 1,
+          "infanJumpFrequency5": 0,
+          "infanStandardSpeed": 95,
+          "infanTemperatureI": 300,
+          "infanJumpFrequency3": 0,
+          "infanJumpFrequency1": 0,
+          "infanMinSpeed": 40,
+          "infanStandardCfc": 100,
+          "infanReduceSpeedDelayTime": 30
+        },
+        "measurement": {}
+      },
+      "compressor0": {
+        "name": "Compressor",
+        "point": {
+          "compressorDriverFaultU03": {
+            "value": false
+          },
+          "compressorDriverFaultU04": {
+            "value": false
+          },
+          "compressorRunTimeHours": {
+            "value": 0
+          },
+          "compressorDriverFaultU11": {
+            "value": false
+          },
+          "compressorDriverFaultU12": {
+            "value": false
+          },
+          "compressorDriverFaultU02": {
+            "value": false
+          },
+          "compressorDriverFaultU00": {
+            "value": false
+          },
+          "compressorDriverFaultU07": {
+            "value": false
+          },
+          "compressorStartStopCount": {
+            "value": 3
+          },
+          "compressorFaultLockAlarm": {
+            "value": false
+          },
+          "compressorDriverFaultU15": {
+            "value": false
+          },
+          "compressorDriverFaultU05": {
+            "value": false
+          },
+          "compressorDriverFaultU01": {
+            "value": false
+          },
+          "compressorDriverFaultU13": {
+            "value": false
+          },
+          "compressorDriverFaultU08": {
+            "value": false
+          },
+          "compressorDriverFaultU10": {
+            "value": false
+          },
+          "compressorDriverFaultU09": {
+            "value": false
+          },
+          "compressorDriverCommunicationFailAlarm": {
+            "value": false
+          },
+          "compressorDriverFaultU14": {
+            "value": false
+          },
+          "compressorDriverFaultU06": {
+            "value": false
+          }
+        },
+        "conf": {
+          "compressorJumpBand3": 0,
+          "compressorMinRunTime": 3,
+          "compressorJumpBand1": 0,
+          "compressorJumpFrequency4": 0,
+          "compressorFaultLockAlarmSetting": "open",
+          "compressorJumpFrequency2": 0,
+          "compressorStopCfc": -75,
+          "compressorJumpFrequency3": 0,
+          "compressorDriverCommunicationFailAlarmSetting": "open",
+          "compressorJumpFrequency5": 0,
+          "compressorTemperatureI": 300,
+          "compressorStartCfc": 50,
+          "compressorTemperatureP": 9,
+          "compressorOutputStatus": false,
+          "compressorOutputDeadBand": 2.5,
+          "compressorMinStopTime": 10,
+          "compressorJumpBand2": 0,
+          "compressorStandardCapacity": 100,
+          "compressorMinCapacity": 15,
+          "compressorDriverFaultAlarmSetting": "open",
+          "compressorStartCapacity": 40,
+          "compressorJumpBand5": 0,
+          "compressorJumpBand4": 0,
+          "compressorJumpFrequency1": 0,
+          "compressorCapacityOutputValue": 0,
+          "compressorTemperatureD": 0
+        },
+        "measurement": {
+          "0": {
+            "type": "capacity"
+          }
+        }
+      },
+      "return0": {
+        "name": "Return",
+        "point": {
+          "highReturnTemperatureAlarm": {
+            "value": false
+          },
+          "returnTemperatureSensorFailAlarm": {
+            "value": false
+          }
+        },
+        "conf": {
+          "returnOilRunCapacity": 60,
+          "returnOilCycle": 4,
+          "returnTemperatureCalibrationValue": 0,
+          "returnOilRunTime": 3,
+          "returnHighTemperatureAlarmSetting": "open",
+          "returnHighTemperatureAlarmSettingValue": 219.19,
+          "returnTemperatureSensorFailAlarmSetting": "open",
+          "returnTemperatureSetting": 170.59
+        },
+        "measurement": {
+          "0": {
+            "type": "temperature"
+          }
+        }
+      },
+      "supply0": {
+        "name": "Supply",
+        "point": {
+          "highSupplyTemperatureAlarm": {
+            "value": false
+          },
+          "supplyTemperatureSensorFailAlarm": {
+            "value": false
+          },
+          "lowSupplyTemperatureAlarm": {
+            "value": false
+          }
+        },
+        "conf": {
+          "supplyLowTemperatureAlarmSetting": "open",
+          "supplyTemperatureSensorFailAlarmSetting": "open",
+          "supplyHighTemperatureAlarmSettingValue": 177.07,
+          "supplyLowTemperatureAlarmSettingValue": 115.51,
+          "supplyTemperatureCalibrationValue": 0,
+          "supplyTemperatureSetting": 141.43,
+          "supplyHighTemperatureAlarmSetting": "open"
+        },
+        "measurement": {
+          "0": {
+            "type": "temperature"
+          }
+        }
+      },
+      "power0": {
+        "name": "Power",
+        "point": {
+          "highVoltagePowerAlarm": {
+            "value": false
+          },
+          "lossOfPowerAlarm": {
+            "value": false
+          },
+          "lowVoltagePowerAlarm": {
+            "value": true
+          },
+          "lossOfPhasePowerAlarm": {
+            "value": false
+          },
+          "powerFrequencyErrorAlarm": {
+            "value": false
+          }
+        },
+        "conf": {
+          "lowPowerVoltageAlarmSetting": "suspend",
+          "lossOfPowerAlarmSetting": "open",
+          "powerLowVoltageSettingValue": 187,
+          "highPowerVoltageAlarmSetting": "open",
+          "powerHighVoltageSettingValue": 253,
+          "powerFrequencyErrorAlarmSetting": "open"
+        },
+        "measurement": {
+          "0": {
+            "type": "voltage"
+          },
+          "1": {
+            "type": "voltageFrequency"
+          }
+        }
+      },
+      "outdoor0": {
+        "name": "Outdoor",
+        "point": {},
+        "conf": {},
+        "measurement": {
+          "0": {
+            "type": "temperature"
+          }
+        }
+      },
+      "discharge0": {
+        "name": "Discharge",
+        "point": {
+          "dischargeTemperatureSensorFailAlarm": {
+            "value": false
+          },
+          "dischargeHighTemperatureAlarm": {
+            "value": false
+          },
+          "dischargeHighTemperatureFrequentlyAlarm": {
+            "value": false
+          }
+        },
+        "conf": {
+          "dischargeTemperatureSensorFailAlarmSetting": "suspend",
+          "dischargeHighTemperatureAlarmSetting": "open",
+          "dischargeTemperatureCalibrationValue": 0,
+          "dischargeHighTemperatureFrequentlyAlarmSetting": "open",
+          "dischargePressureCalibrationValue": 0
+        },
+        "measurement": {
+          "0": {
+            "type": "temperature"
+          },
+          "1": {
+            "type": "airPressure"
+          }
+        }
+      },
+      "suction0": {
+        "name": "Suction",
+        "point": {
+          "suctionTemperatureSensorFailAlarm": {
+            "value": false
+          },
+          "suctionSuperHeatTemperature": {
+            "value": 37.39
+          }
+        },
+        "conf": {
+          "suctionTemperatureSensorFailAlarmSetting": "suspend",
+          "suctionPressureCalibrationValue": 3
+        },
+        "measurement": {
+          "0": {
+            "type": "temperature"
+          },
+          "1": {
+            "type": "airPressure"
+          }
+        }
+      }
+    }
+  }
+}

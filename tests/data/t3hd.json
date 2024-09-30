@@ -1,0 +1,53 @@
+{
+  "A70004A3BB7F45C3": {
+    "name": "T3HD Sensor",
+    "label": "T3HD Sensor",
+    "type": "t3hd",
+    "entity": {
+      "0": {
+        "name": "Internal",
+        "label": "Internal",
+        "measurement": {
+          "0": {
+            "type": "temperature",
+            "units": "F"
+          },
+          "1": {
+            "type": "humidity"
+          },
+          "2": {
+            "type": "dewpoint",
+            "units": "F"
+          }
+        }
+      },
+      "1": {
+        "name": "Temp A",
+        "label": "Temp A",
+        "measurement": {
+          "0": {
+            "type": "temperature",
+            "units": "F"
+          }
+        }
+      },
+      "2": {
+        "name": "Temp B",
+        "label": "Temp B",
+        "measurement": {
+          "0": {
+            "type": "temperature",
+            "units": "F"
+          }
+        }
+      }
+    },
+    "layout": {
+      "0": [
+        "entity/0",
+        "entity/1",
+        "entity/2"
+      ]
+    }
+  }
+}

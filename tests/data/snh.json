@@ -1,0 +1,20 @@
+{
+"AF00000247758626": {
+"name": "SN Relative Humidity",
+"label": "SN Relative Humidity",
+"type": "snh",
+"entity": {
+"1": {
+"name": "SN Relative Humidity",
+"measurement": {
+"0": {
+"type": "humidity"
+}
+}
+}
+},
+"layout": {
+"0": ["entity/0"]
+}
+}
+}

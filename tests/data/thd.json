@@ -1,0 +1,30 @@
+{
+  "A70004A3BB7F45C3": {
+    "name": "THD Sensor",
+    "label": "THD Sensor",
+    "type": "thd",
+    "entity": {
+      "0": {
+        "name": "THD Sensor",
+        "measurement": {
+          "0": {
+            "type": "temperature",
+            "units": "F"
+          },
+          "1": {
+            "type": "humidity"
+          },
+          "2": {
+            "type": "dewpoint",
+            "units": "F"
+          }
+        }
+      }
+    },
+    "layout": {
+      "0": [
+        "entity/0"
+      ]
+    }
+  }
+}

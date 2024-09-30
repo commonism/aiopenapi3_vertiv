@@ -1,0 +1,33 @@
+{
+  "A70004A3BB7F45C3": {
+    "name": "AF/H/T 3 Sensor",
+    "label": "AF/H/T 3 Sensor",
+    "type": "afht3",
+    "entity": {
+      "0": {
+        "name": "",
+        "measurement": {
+          "0": {
+            "type": "temperature",
+            "units": "F"
+          },
+          "1": {
+            "type": "humidity"
+          },
+          "2": {
+            "type": "dewpoint",
+            "units": "F"
+          },
+          "3": {
+            "type": "airflow"
+          }
+        }
+      }
+    },
+    "layout": {
+      "0": [
+        "entity/0"
+      ]
+    }
+  }
+}

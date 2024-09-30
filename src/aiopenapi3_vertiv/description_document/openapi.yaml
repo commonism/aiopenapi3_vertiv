@@ -1,4 +1,4 @@
-openapi: 3.0.0
+openapi: 3.1.0
 info:
   version: 1.0.0
   title: Vertiv/Geist PDU JSON API OpenAPI description document
@@ -554,16 +554,31 @@ components:
       discriminator:
         propertyName: type
         mapping:
-          i03: "#/components/schemas/i03"
-          thd: "#/components/schemas/thd"
+          afht3: "#/components/schemas/afht3"
           t3hd: "#/components/schemas/t3hd"
+          thd: "#/components/schemas/thd"
           remotetemp: "#/components/schemas/remotetemp"
+          a2d: "#/components/schemas/a2d"
+          snt: "#/components/schemas/snt"
+          snh: "#/components/schemas/snh"
+          snd: "#/components/schemas/snd"
+          i03: "#/components/schemas/i03"
+          rs: "#/components/schemas/rs"
+          vrc: "#/components/schemas/vrc"
+
 
       oneOf:
+      - $ref: "#/components/schemas/a2d"
+      - $ref: "#/components/schemas/afht3"
       - $ref: "#/components/schemas/i03"
+      - $ref: "#/components/schemas/snd"
+      - $ref: "#/components/schemas/snh"
+      - $ref: "#/components/schemas/snt"
       - $ref: "#/components/schemas/thd"
       - $ref: "#/components/schemas/t3hd"
       - $ref: "#/components/schemas/remotetemp"
+      - $ref: "#/components/schemas/rs"
+      - $ref: "#/components/schemas/vrc"
 
     DeviceRequestControl:
       type: object
@@ -658,19 +673,10 @@ components:
             outletControlEnabled:
               type: boolean
         point:
-          type: object
-          additionalProperties: false
-          properties:
-            pseCompliant:
-              type: object
-            meterType:
-              type: object
-              additionalProperties: false
-              properties:
-                value:
-                  type: string
+          $ref: "#/components/schemas/PDUPoint"
         lifetimeEnergy:
-          type: string
+          type: [string,integer]
+          x-FIXME: ETYPE
 
       required:
         - type
@@ -683,14 +689,69 @@ components:
         - layout
         - order
         - snmpInstance
-        - conf
         - point
         - lifetimeEnergy
+
+    rs:
+      type: object
+      additionalProperties: false
+      description: R-Series PDU version 5
+      properties:
+        type:
+          type: string
+          enum: [rs]
+        state:
+          type: string
+          enum:
+          - normal
+          - unavailable
+          - degraded
+        alarm:
+          $ref: "#/components/schemas/AlarmState"
+        name:
+          type: string
+        label:
+          type: string
+        analog:
+          $ref: "#/components/schemas/AnalogInput"
+        outlet:
+          type: object
+          additionalProperties:
+            $ref: "#/components/schemas/Outlet"
+        entity:
+          type: object
+          additionalProperties:
+            $ref: "#/components/schemas/Entity"
+        layout:
+          type: object
+          additionalProperties:
+            $ref: "#/components/schemas/Layout"
+        order:
+          type: integer
+        snmpInstance:
+          type: integer
+
+        point:
+          $ref: "#/components/schemas/PDUPoint"
+
+      required:
+        - type
+        - state
+        - alarm
+        - name
+        - label
+        - outlet
+        - entity
+        - layout
+        - order
+        - snmpInstance
+        - point
+
 
     thd:
       type: object
       additionalProperties: false
-      description: 4.2 __SERIAL_NUM__
+      description: Temperature, humidity, and dewpoint sensor
       properties:
         type:
           type: string
@@ -731,10 +792,98 @@ components:
         - order
         - snmpInstance
 
+    afht3:
+      type: object
+      additionalProperties: false
+      description: Triple temperature, humidity, and dewpoint sensor
+      properties:
+        type:
+          type: string
+          enum: [afht3]
+        state:
+          type: string
+          enum:
+          - normal
+          - unavailable
+          - degraded
+        alarm:
+          $ref: "#/components/schemas/AlarmState"
+        name:
+          type: string
+        label:
+          type: string
+        entity:
+          type: object
+          additionalProperties:
+            $ref: "#/components/schemas/Entity"
+        layout:
+          type: object
+          additionalProperties:
+            $ref: "#/components/schemas/Layout"
+        order:
+          type: integer
+        snmpInstance:
+          type: integer
+
+      required:
+        - type
+        - state
+        - alarm
+        - name
+        - label
+        - entity
+        - layout
+        - order
+        - snmpInstance
+
+    a2d:
+      type: object
+      additionalProperties: false
+      description: Triple temperature, humidity, and dewpoint sensor
+      properties:
+        type:
+          type: string
+          enum: [a2d]
+        state:
+          type: string
+          enum:
+          - normal
+          - unavailable
+          - degraded
+        alarm:
+          $ref: "#/components/schemas/AlarmState"
+        name:
+          type: string
+        label:
+          type: string
+        analog:
+          type: object
+          additionalProperties:
+            $ref: "#/components/schemas/AnalogInput"
+        layout:
+          type: object
+          additionalProperties:
+            $ref: "#/components/schemas/Layout"
+        order:
+          type: integer
+        snmpInstance:
+          type: integer
+
+      required:
+        - type
+        - state
+        - alarm
+        - name
+        - label
+        - entity
+        - layout
+        - order
+        - snmpInstance
+
     t3hd:
       type: object
       additionalProperties: false
-      description: 4.2 __SERIAL_NUM__
+      description: Triple temperature, humidity, and dewpoint sensor
       properties:
         type:
           type: string
@@ -778,7 +927,7 @@ components:
     remotetemp:
       type: object
       additionalProperties: false
-      description: 4.2 __SERIAL_NUM__
+      description: Temperature sensor
       properties:
         type:
           type: string
@@ -795,6 +944,196 @@ components:
           type: string
         label:
           type: string
+        entity:
+          type: object
+          additionalProperties:
+            $ref: "#/components/schemas/Entity"
+        layout:
+          type: object
+          additionalProperties:
+            $ref: "#/components/schemas/Layout"
+        order:
+          type: integer
+        snmpInstance:
+          type: integer
+
+      required:
+        - type
+        - state
+        - alarm
+        - name
+        - label
+        - entity
+        - layout
+        - order
+        - snmpInstance
+
+    snd:
+      type: object
+      additionalProperties: false
+      description: SN Series Door Position Sensor
+      properties:
+        type:
+          type: string
+          enum: [snh]
+        state:
+          type: string
+          enum:
+          - normal
+          - unavailable
+          - degraded
+        alarm:
+          $ref: "#/components/schemas/AlarmState"
+        name:
+          type: string
+        label:
+          type: string
+        analog:
+          type: object
+          additionalProperties:
+            $ref: "#/components/schemas/AnalogInput"
+        layout:
+          type: object
+          additionalProperties:
+            $ref: "#/components/schemas/Layout"
+        order:
+          type: integer
+        snmpInstance:
+          type: integer
+
+      required:
+        - type
+        - state
+        - alarm
+        - name
+        - label
+        - analog
+        - layout
+        - order
+        - snmpInstance
+
+
+    snh:
+      type: object
+      additionalProperties: false
+      description: SN series humidity sensor
+      properties:
+        type:
+          type: string
+          enum: [snh]
+        state:
+          type: string
+          enum:
+          - normal
+          - unavailable
+          - degraded
+        alarm:
+          $ref: "#/components/schemas/AlarmState"
+        name:
+          type: string
+        label:
+          type: string
+        entity:
+          type: object
+          additionalProperties:
+            $ref: "#/components/schemas/Entity"
+        layout:
+          type: object
+          additionalProperties:
+            $ref: "#/components/schemas/Layout"
+        order:
+          type: integer
+        snmpInstance:
+          type: integer
+
+      required:
+        - type
+        - state
+        - alarm
+        - name
+        - label
+        - entity
+        - layout
+        - order
+        - snmpInstance
+
+
+    snt:
+      type: object
+      additionalProperties: false
+      description: SN series temperature sensor
+      properties:
+        type:
+          type: string
+          enum: [snt]
+        state:
+          type: string
+          enum:
+          - normal
+          - unavailable
+          - degraded
+        alarm:
+          $ref: "#/components/schemas/AlarmState"
+        name:
+          type: string
+        label:
+          type: string
+        entity:
+          type: object
+          additionalProperties:
+            $ref: "#/components/schemas/Entity"
+        layout:
+          type: object
+          additionalProperties:
+            $ref: "#/components/schemas/Layout"
+        order:
+          type: integer
+        snmpInstance:
+          type: integer
+
+      required:
+        - type
+        - state
+        - alarm
+        - name
+        - label
+        - entity
+        - layout
+        - order
+        - snmpInstance
+
+    vrc:
+      type: object
+      additionalProperties: false
+      description: VRC cooling unit
+      properties:
+        type:
+          type: string
+          enum: [snt]
+        state:
+          type: string
+          enum:
+          - normal
+          - unavailable
+          - degraded
+        alarm:
+          $ref: "#/components/schemas/AlarmState"
+        name:
+          type: string
+        label:
+          type: string
+
+        point:
+          type: object
+          additionalProperties:
+            type: object
+            additionalProperties: false
+            properties:
+              value:
+                type: [boolean, integer, string]
+        conf:
+          type: object
+          additionalProperties: true
         entity:
           type: object
           additionalProperties:
@@ -1055,6 +1394,19 @@ components:
             rebootHoldDelay:
               type: integer
 
+    PDUPoint:
+      type: object
+      additionalProperties: false
+      properties:
+        pseCompliant:
+          type: object
+        meterType:
+          type: object
+          additionalProperties: false
+          properties:
+            value:
+              type: string
+
 
     Entity:
       type: object
@@ -1073,16 +1425,10 @@ components:
             $ref: "#/components/schemas/Measurement"
         conf:
           type: object
-          additionalProperties: false
-
+          additionalProperties: true
         point:
           type: object
-          additionalProperties: false
-          properties:
-            lossOfLoadDetected:
-              $ref: "#/components/schemas/BooleanValue"
-            residualCurrentDetected:
-              $ref: "#/components/schemas/BooleanValue"
+          additionalProperties: true
 
     BooleanValue:
       type: object

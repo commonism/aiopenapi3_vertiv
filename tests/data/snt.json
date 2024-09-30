@@ -1,0 +1,21 @@
+{
+"5600000054499942": {
+"name": "SN Temperature",
+"label": "SN Temperature",
+"type": "snt",
+"entity": {
+"0": {
+"name": "SN Temperature",
+"measurement": {
+"0": {
+"type": "temperature",
+"units": "F"
+}
+}
+}
+},
+"layout": {
+"0": ["entity/0"]
+}
+}
+}

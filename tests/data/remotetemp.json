@@ -1,0 +1,23 @@
+{
+  "A70004A3BB7F45C3": {
+    "name": "Temp Sensor",
+    "label": "Temp Sensor",
+    "type": "remotetemp",
+    "entity": {
+      "0": {
+        "name": "Temp Sensor",
+        "measurement": {
+          "0": {
+            "type": "temperature",
+            "units": "F"
+          }
+        }
+      }
+    },
+    "layout": {
+      "0": [
+        "entity/0"
+      ]
+    }
+  }
+}

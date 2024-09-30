@@ -2,6 +2,15 @@
 
 OpenAPI3 description document for geist / Vertiv PDUs
 
+Based on the vendor documents:
+
+```
+107682121fea4883a9d6cdd9002497bae060037e  doc/geist-api-guide-2.pdf
+332a8c0e8b2ac7a34184fe8888806e456a2ae76d  doc/geist_api_public.pdf
+a78d15c53d702efea2099f8a7d53dffc1a667822  doc/geist-api-specification-api-specifications-sl-70874.pdf
+107682121fea4883a9d6cdd9002497bae060037e  doc/geist-vertiv-api-guide-2.pdf
+```
+
 # Examples
 
 ## Switching an Outlet
@@ -22,11 +31,9 @@ def toggle(name):
         pdus = ["192.168.0.1/32","192.168.0.1/32"]
 
     assert len(pdus) == 2
-    for pdu in pdus:
-        addr = ipaddress.ip_network(pdu).network_address
+    clients = [createAPI(ipaddress.ip_network(pdu).network_address) for p in pdus]
 
-        api = createAPI(addr)
-
+    for api in clients:
         # authenticate to the pdu to get the token
         r = api._.auth(
             parameters=dict(user=auth[0]), data=api._.auth.data.get_type()(cmd="login", data={"password": auth[1]})
@@ -58,6 +65,7 @@ def toggle(name):
         time.sleep(30)
 
 
+    for api in clients:
         for oid,outlet in filter(lambda x: x[1].label == name, i03.root.outlet.root.items()):
             print(outlet.name)
             # set mode to "On - if any Alarm Off"

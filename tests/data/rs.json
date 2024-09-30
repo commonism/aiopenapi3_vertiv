@@ -1,0 +1,71 @@
+{
+  "A70004A3BB7F45C3": {
+    "name": "RCU-OD",
+    "label": "RCU-OD",
+    "type": "rs",
+    "entity": {},
+    "outlet": {
+      "0": {
+        "poaDelay": 12.0,
+        "measurement": {
+          "0": {
+            "type": "voltage"
+          },
+          "4": {
+            "type": "current"
+          },
+          "8": {
+            "type": "realPower"
+          },
+          "9": {
+            "type": "apparentPower"
+          },
+          "10": {
+            "type": "powerFactor"
+          },
+          "11": {
+            "type": "energy"
+          }
+        }
+      }
+    },
+    "layout": {
+      "0": [
+        "entity/total0",
+        "entity/phase0",
+        "entity/phase1",
+        "entity/phase2"
+      ],
+      "1": [
+        "entity/line0",
+        "entity/line1",
+        "entity/line2"
+      ],
+      "2": [
+        "entity/breaker0",
+        "entity/breaker1",
+        "entity/breaker2"
+      ],
+      "entity/breaker0": [
+        "outlet/0",
+        "outlet/1",
+        "outlet/2"
+      ],
+      "entity/breaker1": [
+        "outlet/3",
+        "outlet/4",
+        "outlet/5"
+      ],
+      "entity/breaker2": [
+        "outlet/6",
+        "outlet/7",
+        "outlet/8"
+      ]
+    },
+    "point": {
+      "meterType": {
+        "value": "wye"
+      }
+    }
+  }
+}

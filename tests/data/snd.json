@@ -1,0 +1,25 @@
+{
+"6900000029993029": {
+"name": "SN Door",
+"label": "SN Door",
+"type": "snd",
+"analog": {
+"0": {
+"name": "Door 1",
+"label": "Door 1",
+"type": "binary",
+"mode": "door"
+},
+"1": {
+"name": "Door 2",
+"label": "Door 2",
+"type": "binary",
+"mode": "door"
+}
+},
+"layout": {
+"0": ["analog/0"],
+"1": ["analog/1"]
+}
+}
+}

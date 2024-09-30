@@ -1,0 +1,19 @@
+{
+  "A70004A3BB7F45C3": {
+    "name": "A2D Sensor",
+    "label": "A2D Sensor",
+    "type": "a2d",
+    "analog": {
+      "0": {
+        "name": "Analog Input",
+        "label": "Analog Input",
+        "type": "10V"
+      }
+    },
+    "layout": {
+      "0": [
+        "analog/0"
+      ]
+    }
+  }
+}
