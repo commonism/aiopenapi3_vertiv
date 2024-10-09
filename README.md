@@ -4,12 +4,10 @@ OpenAPI3 description document for geist / Vertiv PDUs
 
 Based on the vendor documents:
 
-```
-107682121fea4883a9d6cdd9002497bae060037e  doc/geist-api-guide-2.pdf
-332a8c0e8b2ac7a34184fe8888806e456a2ae76d  doc/geist_api_public.pdf
-a78d15c53d702efea2099f8a7d53dffc1a667822  doc/geist-api-specification-api-specifications-sl-70874.pdf
-107682121fea4883a9d6cdd9002497bae060037e  doc/geist-vertiv-api-guide-2.pdf
-```
+  * a78d15c53d702efea2099f8a7d53dffc1a667822  [geist-api-specification-api-specifications-sl-70874.pdf](https://web.archive.org/web/20240901070650/https://www.vertiv.com/4a5036/globalassets/products/critical-power/power-distribution/vertiv-geist-monitored-rack-pdu2/geist-api-specification-api-specifications-sl-70874.pdf)
+  * 107682121fea4883a9d6cdd9002497bae060037e  doc/geist-api-guide-2.pdf
+  * 332a8c0e8b2ac7a34184fe8888806e456a2ae76d  doc/geist_api_public.pdf
+  * 107682121fea4883a9d6cdd9002497bae060037e  doc/geist-vertiv-api-guide-2.pdf
 
 # Examples
 
